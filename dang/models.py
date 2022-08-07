@@ -11,16 +11,16 @@ class Location(models.Model):
     locationName = models.CharField(max_length=100)
 
 class Cafe(models.Model):
-    cafeName= models.CharField(max_length=100)
+    cafeName= models.CharField(max_length=100,null=True)
     cafePhone= models.CharField(max_length=100)
     cafeAddress= models.CharField(max_length=100)
     cafeLink= models.CharField(max_length=100)
     cafeImg= models.CharField(max_length=100)
     cafeCategory= models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True,blank=True)
 
 class Place(models.Model):
-    placeName = models.CharField(max_length=100)
+    placeName = models.CharField(max_length=100,null=True)
     placePic = models.CharField(max_length=100)
     placeAddress = models.CharField(max_length=100)
     placePhone = models.CharField(max_length=100)

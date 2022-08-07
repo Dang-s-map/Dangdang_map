@@ -13,5 +13,7 @@ urlpatterns = [
   path('accomodation', views.accomodationList, name='accomodationList'),
   path('place', views.placeList, name='placeList'),
   path('detail',views.detail, name="detail"),
+  path('list',views.list, name="list"),
+  path('read_data',views.read_data, name="read_data"),
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

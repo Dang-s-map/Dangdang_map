@@ -53,3 +53,21 @@ a {
 .home_best_item {
   border: 1px solid rgb(102, 97, 97);
 }
+
+/* ################ */
+
+.review {
+  display: flex;
+}
+
+.review-head {
+  display: flex;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2vh 2vh;
+  gap: 2vh;
+}
