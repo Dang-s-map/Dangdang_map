@@ -79,14 +79,16 @@
     </div>
   </div>
   <div class="right">
+    {% for place in list%}
     <div class="list-box">
       <div class="img-box"><img src="" alt="" /></div>
       <div class="accom-text-box">
-        <h1>이름</h1>
-        <span>타입</span>
-        <h3>전화번호</h3>
+        <h1>{{place.name}}</h1>
+        <span>{{place.type}}</span>
+        <h3>{{place.phone}}</h3>
       </div>
     </div>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}
