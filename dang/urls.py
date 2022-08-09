@@ -9,11 +9,11 @@ from django.conf.urls.static import static
 app_name = "dang"
 
 urlpatterns = [
-  path('', views.home, name='home'),
+  path('', views.home, name='home'), # 메인 홈페이지
   path('cafe', views.cafeList, name='cafeList'),
   path('place', views.placeList, name='placeList'),
   path('accomo', views.accomoList, name='accomoList'),
-  path('medical', views.medicalList, name='medicalList'),
+  path('medical', views.medicalList, name='medicalList'), # 응급댕댕 페이지
   path('cates/', views.cates, name='cates'), # category 선택 ajax
   path('locationBtn/', views.locationBtn, name='locationBtn'), # 지역 고르기 ajax
   path('listGo/', views.listGo, name='listGo'), # 선택 적용 ajax
@@ -22,10 +22,10 @@ urlpatterns = [
   path('cafe/<int:id>', views.cafeDetail, name='cafeDetail'), # 상세페이지(카페)
   path('accommo/<int:id>', views.accommoDetail, name='accommoDetail'), # 상세페이지(카페)
   path('place/<int:id>', views.placeDetail, name='placeDetail'), # 상세페이지(카페)
-  path('', views.home, name='home'),
-  path('admin/', admin.site.urls),
+  path('logout', views.logout, name='logout'),
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),
-  path('logout/', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
+  path('ajax_left', views.ajax_left, name='ajax_left'),
+  path('ajax_right', views.ajax_right, name='ajax_right'),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

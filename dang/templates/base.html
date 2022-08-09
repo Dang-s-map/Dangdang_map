@@ -21,9 +21,13 @@
           <a href="/medical"><img src="\static\img\Medical.svg" alt=""></a>
         </div>
         <div class="login-container">
-          <a href="/join/"><img src="\static\img\Join.svg" alt=""></a>
-          <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
-          <a href="/mypage/"><img src="\static\img\MyPage.svg" alt=""></a>
+            {% if user.is_authenticated %}
+                <a href="/logout">로그아웃</a>
+            {% else %}
+                <a href="/join/"><img src="\static\img\Join.svg" alt=""></a>
+                <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
+            {% endif %}
+                <a href="/mypage/"><img src="\static\img\MyPage.svg" alt=""></a>
         </div>
       </div>
     </header>

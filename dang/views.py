@@ -66,24 +66,21 @@ def home(request):
 
 def cafeList(request):
     #
-    only_cate_cafe=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
-    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe}
+    context = { "category" : "cafe", "location" : NULL}
     #
     #
     return render(request, 'mainList.html', context=context)
 
 def placeList(request):
     #
-    only_cate_place=Place.objects.filter(Q(location='서울')& Q(type='명소'))
-    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place}
+    context = { "category" : "place", "location" : NULL }
     #
     #
     return render(request, 'mainList.html', context=context)
 
 def accomoList(request):
     #
-    only_cate_accom=Accomodation.objects.filter(Q(location='서울')& Q(type='호텔'))
-    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom}
+    context = { "category" : "accomo", "location" : NULL }
     #
     #
     return render(request, 'mainList.html', context=context)
@@ -103,8 +100,7 @@ def mainList(request):
 
 def mainList(request, location): # main에서 지역 선택했을 때
     #
-    only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
-    context = { "location" : location, 'list' : only_loc }
+    context = { "location" : location }
     #
     #
     return render(request, 'mainList.html', context=context)
@@ -140,6 +136,26 @@ def listGo(request):
     # return JsonResponse(context)
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
+
+
+page_num = 0
+
+@csrf_exempt
+def ajax_left():
+    page_num = page_num -1
+    if page_num == -1:
+        page_num = 2
+    else:
+        page_num = page_num % 2
+    return JsonResponse({'num': page_num})
+
+@csrf_exempt
+def ajax_right():
+    page_num = (page_num +1) % 2
+    return JsonResponse({'num': page_num})
+
+
+
 def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
     context = { "cafe":cafe }
