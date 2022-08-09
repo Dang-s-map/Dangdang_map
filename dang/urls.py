@@ -22,5 +22,7 @@ urlpatterns = [
   path('accommo/<int:id>', views.accommoDetail, name='accommoDetail'), # 상세페이지(카페)
   path('place/<int:id>', views.placeDetail, name='placeDetail'), # 상세페이지(카페)
 
+  path('map', views.map, name='map'),
+
 
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

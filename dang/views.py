@@ -46,6 +46,7 @@ def accomoList(request):
 def mainList(request, location): # main에서 지역 선택했을 때
     #
     context = { "location" : location }
+
     #
     #
     return render(request, 'mainList.html', context=context)
@@ -100,6 +101,11 @@ def placeDetail(request, id):
     context = { "place":place }
     return render(request, '무슨무슨.html', context=context)
 
+
+## map 연습
+def map(request):
+
+    return render(request, 'map_test.html')
 
 
 
