@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title>간단한 지도 표시하기</title>
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=6jspm8wa5r"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=6jspm8wa5r&submodules=geocoder"
+    ></script>
+  </head>
+  <body>
+    <div id="map" style="width: 100%; height: 400px"></div>
+
+    <script>
+      function getLatLng(mapx, mapy) {
+        var tm128 = new naver.maps.Point(mapx, mapy);
+        var latLang = naver.maps.TransCoord.fromTM128ToLatLng(tm128);
+
+        return { lat: latLang._lat, lng: latLang._lng };
+      }
+
+      //   naver.maps.Service.geocode(
+      //     {
+      //       address: "서울 마포구 와우산로17길 19-5",
+      //     },
+      //     function (status, response) {
+      //       if (status !== naver.maps.Service.Status.OK) {
+      //         return alert("Something wrong!");
+      //       }
+
+      //       var result = response.result, // 검색 결과의 컨테이너
+      //         items = result.items; // 검색 결과의 배열
+      //       lat = items["point"]["x"];
+      //       lng = items["point"]["y"];
+      //       // do Something
+      //     }
+      //   );
+
+      loc = getLatLng(313684, 547165);
+      lat = loc["lat"];
+      lng = loc["lng"];
+
+      //   var mapOptions = {
+      //     // center: new naver.maps.LatLng(37.3595704, 127.105399),
+      //     center: new naver.maps.LatLng(lat, lng),
+      //     zoom: 17,
+      //   };
+
+      var map = new naver.maps.Map("map", {
+        center: new naver.maps.LatLng(lat, lng),
+        zoom: 17,
+      });
+
+      var marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(lat, lng),
+        map: map,
+      });
+
+      var map = new naver.maps.Map("map", mapOptions);
+    </script>
+  </body>
+</html>
