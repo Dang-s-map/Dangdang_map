@@ -25,6 +25,7 @@ urlpatterns = [
   path('logout', views.logout, name='logout'),
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),
+  path('logout', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
   path('btn_left/', views.btn_left, name='btn_left'), #ajax - 어디로 떠날까요
   path('btn_right/', views.btn_right, name='btn_right'), # ajax - 어디로 떠날까요

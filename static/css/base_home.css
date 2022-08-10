@@ -51,6 +51,10 @@ a {
   margin: 20px 0 0 0;
 }
 
+.page_dot {
+  padding: 30px;
+}
+
 .where_to_leave {
   text-align: left;
   width: 100%;
@@ -84,6 +88,10 @@ a {
   border: 1px solid rgb(102, 97, 97);
 }
 
+#num {
+  display:none
+}
+
 .home_best_container {
   border: 1px solid rgb(102, 97, 97);
 }
@@ -106,18 +114,4 @@ a {
 }
 
 /* mainList.html */
-.list-box {
-  border: solid;
-  display: flex;
-}
-.left {
-  border: solid;
-  width: 24rem;
-}
-.left-cate {
-  border: solid;
-  display: flex;
-  justify-content: space-around;
-  padding: 15px 7px;
-}
 

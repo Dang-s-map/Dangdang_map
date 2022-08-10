@@ -36,13 +36,9 @@ const onClickGo = () => {
 requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
-      const { list } = JSON.parse(requestGo.response);
-
-      lists = JSON.parse(list);
-
-      // 사용할 때는 lists[a]["fields"][b]로 사용하면 됩니다.
-      // a 는 index 번호, b는 속성
-      // ex) list[0]["fields"]["name"] --> 0번째 장소의 이름
+      const { location, category, detail } = JSON.parse(requestGo.response);
+      test = document.querySelector(".right");
+      test.innerHTML += `${location} ${category} ${detail}`;
     }
   }
 };

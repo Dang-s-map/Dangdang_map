@@ -1,62 +1,69 @@
 {% extends "base.html" %} {% block content %}
-<div class="list-box">
-  <div class="left">
-    <div class="left-cate">
-      <div class="cate-cafe" onclick="onClickCate(`카페`)">멍카페</div>
-      <div class="cate-accomo" onclick="onClickCate(`숙소`)">멍숙소</div>
-      <div class="cate-place" onclick="onClickCate(`장소`)">멍놀자</div>
-    </div>
-    <div class="left-you-select">강릉으로 선택한 당신 훌륭 어쩌구저쩌구</div>
-    <div class="left-location">
-      <div class="left-location-list">
-        <!-- {% for location in locations %}
-        <div class="list-location" onclick="onClickLocation({{location.name}})">
-          {{location.name}}
-        </div>
-        {% endfor %} -->
-        <form action="" id="location-select">
-          <!-- 여기 생각해봐야함 list로 넘겨줘서 for문 돌릴지 아님 그냥 이렇게 일일이 할지? -->
-          <div><input type="radio" name="location" value="서울" />서울</div>
-          <div><input type="radio" name="location" value="경기" />경기</div>
-          <div><input type="radio" name="location" value="인천" />인천</div>
-          <div><input type="radio" name="location" value="강원" />강원</div>
-          <div><input type="radio" name="location" value="충북" />충북</div>
-          <div><input type="radio" name="location" value="충남" />충남</div>
-          <div><input type="radio" name="location" value="대전" />대전</div>
-          <div><input type="radio" name="location" value="세종" />세종</div>
-          <div><input type="radio" name="location" value="전북" />전북</div>
+<div class="mainList">
+  <div class="list-box">
+    <div class="left">
+      <div class="left-cate">
+        <div class="cate-cafe" onclick="onClickCate(`카페`)">멍카페</div>
+        <div class="cate-accomo" onclick="onClickCate(`숙소`)">멍숙소</div>
+        <div class="cate-place" onclick="onClickCate(`장소`)">멍놀자</div>
+      </div>
+      <div class="left-you-select">강릉으로 선택한 당신 훌륭 어쩌구저쩌구</div>
+      <div class="left-location">
+        <div class="left-location-list">
+          <!-- {% for location in locations %}
+          <div class="list-location" onclick="onClickLocation({{location.name}})">
+            {{location.name}}
+          </div>
+          {% endfor %} -->
+          <form action="" id="location-select">
+            <!-- 여기 생각해봐야함 list로 넘겨줘서 for문 돌릴지 아님 그냥 이렇게 일일이 할지? -->
+            <div><input type="radio" name="location" value="seoul" />서울</div>
+            <div><input type="radio" name="location" value="gyeonggi" />경기</div>
+            <div><input type="radio" name="location" value="incheon" />인천</div>
+            <div><input type="radio" name="location" value="gangwon" />강원</div>
+            <div><input type="radio" name="location" value="chungbuk" />충북</div>
+            <div><input type="radio" name="location" value="chungnam" />충남</div>
+            <div><input type="radio" name="location" value="deajeon" />대전</div>
+            <div><input type="radio" name="location" value="sejong" />세종</div>
+            <div><input type="radio" name="location" value="jeonbuk" />전북</div>
 
-          <!-- <div><input type="radio" name="location" value="jeonnam" />전남</div>
-          <div><input type="radio" name="location" value="gwangju" />광주</div>
-          <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
-          <div><input type="radio" name="location" value="gyeongnam" />경남</div>
-          <div><input type="radio" name="location" value="daegu" />대구</div>
-          <div><input type="radio" name="location" value="ulsan" />울산</div>
-          <div><input type="radio" name="location" value="busan" />부산</div>
-          <div><input type="radio" name="location" value="daejeon" />대전</div>
-          <div><input type="radio" name="location" value="jeju" />제주</div> -->
-        </form>
+            <!-- <div><input type="radio" name="location" value="jeonnam" />전남</div>
+            <div><input type="radio" name="location" value="gwangju" />광주</div>
+            <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
+            <div><input type="radio" name="location" value="gyeongnam" />경남</div>
+            <div><input type="radio" name="location" value="daegu" />대구</div>
+            <div><input type="radio" name="location" value="ulsan" />울산</div>
+            <div><input type="radio" name="location" value="busan" />부산</div>
+            <div><input type="radio" name="location" value="daejeon" />대전</div>
+            <div><input type="radio" name="location" value="jeju" />제주</div> -->
+          </form>
+        </div>
+        <div class="shift-btn">
+          <button onclick="onClickLeft()">&lt;</button>
+          <button onclick="onClickRight()">&gt;</button>
+        </div>
       </div>
-      <div class="shift-btn">
-        <button onclick="onClickLeft()">&lt;</button>
-        <button onclick="onClickRight()">&gt;</button>
+      <div id="left-detail">default로 server에서 넘겨준 값 넣어야 함!</div>
+      <div class="left-btns">
+        <button onclick="onClickGo()">적용 Go!</button>
       </div>
     </div>
-    <div id="left-detail">default로 server에서 넘겨준 값 넣어야 함!</div>
-    <div class="left-btns">
-      <button onclick="onClickGo()">적용 Go!</button>
-    </div>
-  </div>
+  </div> 
   <div class="right">
     {% for place in list%}
-    <div class="list-box">
-      <div class="img-box"><img src="" alt="" /></div>
-      <div class="accom-text-box">
-        <h1>{{place.name}}</h1>
-        <span>{{place.type}}</span>
-        <h3>{{place.phone}}</h3>
+      <div class="list-box-right">
+        <div class="img-box"><img src="" alt="" /></div>
+        <div class="accom-text-box">
+          <h1>
+            <a href ="/detail" class="name">{{place.name}}</a>
+          </h1>
+          <span class="type">{{place.type}}</span>
+          <h3 class="phone">{{place.phone}}</h3>
+          <div class="heart">
+            <img src="\static\img\heart.svg"></img>
+          </div>
+        </div>
       </div>
-    </div>
     {% endfor %}
   </div>
 </div>

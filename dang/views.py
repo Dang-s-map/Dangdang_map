@@ -159,17 +159,17 @@ def btn_right(request):
 def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
     context = { "cafe":cafe }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'cafeDetail.html', context=context)
     
 def accommoDetail(request, id):
     accomo = Accomodation.objects.get(id=id)
     context = { "accomo":accomo }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'accommoDetail.html', context=context)
 
 def placeDetail(request, id):
     place = Place.objects.get(id=id)
     context = { "place":place }
-    return render(request, '무슨무슨.html', context=context)
+    return render(request, 'placeDetail.html', context=context)
 
 
 
