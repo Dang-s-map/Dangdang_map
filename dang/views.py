@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 # Create your views here.
 
-from .models import User, Location, Cafe, Place, Accomodation, Medical, Post 
+from .models import User, Location, Cafe, Place, Accomodation, Medical, Post
 
 def login(request):
 
@@ -34,6 +34,7 @@ def login(request):
 
 def join(request):
     if request.method == 'POST' :
+        # 비밀번호 확인은 HTML에서 하시는 걸 추천드립니다.
         if request.POST['password1'] == request.POST['password2']:
             user = User.objects.create_user(
                 username = request.POST['username'],
@@ -54,10 +55,14 @@ def mypage(request):
 
     return render(request, 'mypage.html')
 
+# 도로명 주소 API 참고하시라고 남겨드립니다.
+# https://www.juso.go.kr/addrlink/openApi/apiExprn.do
 # 임시로 만들어 둔 지역 list입니다. 나중에 db로 대체하든, 얘기해봐요..
 locationDic = {'seoul':'서울','gyeongi':'경기','incheon':'인천','gangwon':'강원','chungbuk':'충북','chungnam':'충남','deajeon':'대전','sejong':'세종','jeonbuk':'전북','jeonnam':'전남','gwangju':'광주','gyeongbuk':'경북','gyeongnam':'경남','daegu':'대구','ulsan':'울산','busan':'부산','daejeon':'대전','jeju':'제주' }
 
 def home(request):
+    # CamelCase와 SnakeCase 통일 부탁드립니다.
+    # location_list
     locationList = locationDic.values()
 
     context = { "locationList" : locationList }
@@ -144,7 +149,7 @@ def cafeDetail(request, id):
     cafe = Cafe.objects.get(id=id)
     context = { "cafe":cafe }
     return render(request, '무슨무슨.html', context=context)
-    
+
 def accommoDetail(request, id):
     accomo = Accomodation.objects.get(id=id)
     context = { "accomo":accomo }
@@ -161,10 +166,13 @@ def placeDetail(request, id):
 ### db에 csv 파일 넣는 함수입니다.
 ### migrations 날리고 dbsqlite 날리고 사용해야 합니다. 한번만 작동해주세요..!! 여러번 하면 여러번 들어가요
 def csvToModel(request):
+    # 시작하기 전에 다 지우면 어떨까요?
+    # Accomadation.objects.all().delete()
+    # Cafe.objects.all().delete()
     c = open("./static/csv/cafe.csv",'r',encoding='CP949')
     a = open("./static/csv/accommo.csv",'r',encoding='CP949')
     p = open("./static/csv/place.csv",'r',encoding='CP949')
-    
+
     reader_cafe = csv.reader(c)
     reader_accomo = csv.reader(a)
     reader_place = csv.reader(p)
