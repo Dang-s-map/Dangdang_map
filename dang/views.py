@@ -66,21 +66,24 @@ def home(request):
 
 def cafeList(request):
     #
-    context = { "category" : "cafe", "location" : NULL}
+    only_cate_cafe=Cafe.objects.filter(Q(location='서울')&Q(type='애견동반'))
+    context = { "category" : "cafe", "location" : NULL, 'list' : only_cate_cafe}
     #
     #
     return render(request, 'mainList.html', context=context)
 
 def placeList(request):
     #
-    context = { "category" : "place", "location" : NULL }
+    only_cate_place=Place.objects.filter(Q(location='서울')& Q(type='명소'))
+    context = { "category" : "place", "location" : NULL, 'list' : only_cate_place}
     #
     #
     return render(request, 'mainList.html', context=context)
 
 def accomoList(request):
     #
-    context = { "category" : "accomo", "location" : NULL }
+    only_cate_accom=Accomodation.objects.filter(Q(location='서울')& Q(type='호텔'))
+    context = { "category" : "accomo", "location" : NULL , 'list' : only_cate_accom}
     #
     #
     return render(request, 'mainList.html', context=context)
@@ -100,7 +103,8 @@ def mainList(request):
 
 def mainList(request, location): # main에서 지역 선택했을 때
     #
-    context = { "location" : location }
+    only_loc= Cafe.objects.filter(Q(location=location)& Q(type='애견동반'))
+    context = { "location" : location, 'list' : only_loc }
     #
     #
     return render(request, 'mainList.html', context=context)
