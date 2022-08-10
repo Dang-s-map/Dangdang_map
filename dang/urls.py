@@ -26,6 +26,6 @@ urlpatterns = [
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),
   path('mypage/', views.mypage, name='mypage'),
-  path('ajax_left', views.ajax_left, name='ajax_left'),
-  path('ajax_right', views.ajax_right, name='ajax_right'),
+  path('btn_left/', views.btn_left, name='btn_left'), #ajax - 어디로 떠날까요
+  path('btn_right/', views.btn_right, name='btn_right'), # ajax - 어디로 떠날까요
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

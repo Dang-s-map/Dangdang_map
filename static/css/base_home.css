@@ -39,20 +39,45 @@ a {
 /* home.html */
 
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: auto;
   background-color: rgba(255, 240, 161, 1);
 }
 
+.banner img{
+  object-fit: cover;
+  margin: 20px 0 0 0;
+}
+
+.where_to_leave {
+  text-align: left;
+  width: 100%;
+  padding: 70px 220px 0;
+  font-size: xx-large;
+}
 .home_location_list {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
   align-items: center;
-  height: 30vh;
+  width: 100%;
+  gap: 2rem;
+  padding: 50px 150px 0 150px;
 }
+
+.home_location {
+  width: 151px;
+  height: 151px;
+}
+
 .shift-locations {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
   align-items: center;
-  gap: 1rem;
+  width: 100%;
+  gap: 2rem;
+  padding: 0;
 }
 
 .home_location {

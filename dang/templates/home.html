@@ -2,16 +2,9 @@
 <div class="container">
   <div class="banner"><img src="\static\img\banner.svg" alt=""></div>
   <div class="where_to_leave">어디로 떠날까요?</div>
-  <!-- <div class="home_location_list">
-    {% for location in locationList %}
-    <div class="home_location">
-      <a href="/cities/{{location}}">{{location}}</a>
-    </div>
-    {% endfor %}
-  </div> -->
   <div class="home_location_list">
     <div class="shift-btn-left">
-      <button onclick="onClickHomeLeft()">&lt;</button>
+      <img src="\static\img\left.svg" onclick="onClickHomeLeft()" alt="">
     </div>
       <div class="shift-locations">
         <div class="home_location"><a href="/cities/서울">서울</a></div>
@@ -22,9 +15,10 @@
         <div class="home_location"><a href="/cities/충남">충남</a></div>
       </div>
     <div class="shift-btn-right">
-      <button onclick="onClickHomeRight()">&gt;</button>
+      <img src="\static\img\right.svg" onclick="onClickHomeRight()" alt="">
     </div>
   </div>
+  <div id="num">0</div>
   <div class="home_best_container">
     <div>베스트 장소</div>
     <div class="home_best_list">
@@ -59,5 +53,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}

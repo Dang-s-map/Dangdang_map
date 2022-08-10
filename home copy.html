@@ -1,0 +1,187 @@
+<!-- {% extends 'base.html' %} {% block content %} -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="{% static 'css/reset.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/base_home.css' %}?v=1.1" /> -->
+    <link rel="stylesheet" href="\static\css\base_home.css" />
+    <title>대동멍지도</title>
+  </head>
+  <body>
+    <header>
+      <div class="navbar-container">
+        <div class="category-container">
+          <a href="/"><img src="\static\img\dmj_logo.svg" alt=""></a>
+          <a href="/accomo">멍숙소</a>
+          <a href="/cafe">멍카페</a>
+          <a href="/place">멍놀자</a>
+          <a href="/medical"><img src="\static\img\Medical.svg" alt=""></a>
+        </div>
+        <div class="login-container">
+            {% if user.is_authenticated %}
+                <a href="/logout">로그아웃</a>
+            {% else %}
+                <a href="/join/"><img src="\static\img\Join.svg" alt=""></a>
+                <a href="/login/"><img src="\static\img\SignIn.svg" alt=""></a>
+            {% endif %}
+                <a href="/mypage/"><img src="\static\img\MyPage.svg" alt=""></a>
+        </div>
+      </div>
+    </header>
+<div class="container">
+  <div class="banner"><img src="\static\img\banner.svg" alt=""></div>
+  <div class="where_to_leave">어디로 떠날까요?</div>
+  <div class="home_location_list">
+    <div class="shift-btn-left">
+      <button onclick="onClickHomeLeft()">&lt;</button>
+    </div>
+      <div class="shift-locations">
+        <div class="home_location"><a href="/cities/서울">서울</a></div>
+        <div class="home_location"><a href="/cities/경기">경기</a></div>
+        <div class="home_location"><a href="/cities/인천">인천</a></div>
+        <div class="home_location"><a href="/cities/강원">강원</a></div>
+        <div class="home_location"><a href="/cities/충북">충북</a></div>
+        <div class="home_location"><a href="/cities/충남">충남</a></div>
+      </div>
+    <div class="shift-btn-right">
+      <button onclick="onClickHomeRight()">&gt;</button>
+    </div>
+  </div>
+  <div id="num">0</div>
+  <div class="home_best_container">
+    <div>베스트 장소</div>
+    <div class="home_best_list">
+      <div class="shift-btn">
+        <button onclick="onClickLeft()">&lt;</button>
+      </div>
+      <form action="" id="location-select">
+        <div class="best_shift_lists">
+          <div class="home_best_item">
+            <div class="item_rank">1.</div>
+            <div class="item_name">멍뭉카페</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+          <div class="home_best_item">
+            <div class="item_rank">2.</div>
+            <div class="item_name">멍비치</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+          <div class="home_best_item">
+            <div class="item_rank">3.</div>
+            <div class="item_name">멍펜션</div>
+            <div class="item_img"><img src="" alt="" /></div>
+            <a href="/">바로가기</a>
+          </div>
+        </div>
+      </form>
+      <div class="shift-btn">
+        <button onclick="onClickRight()">&gt;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const requestHomeLeft = new XMLHttpRequest();
+  const onClickHomeLeft = () => {
+    requestHomeLeft.open("POST", "/btn_left/", true);
+    requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    requestHomeLeft.send(JSON.stringify({}));
+  };
+
+  requestHomeLeft.onreadystatechange = () => {
+    if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
+      if (requestHomeLeft.status <= 400) {
+        let element = document.querySelector("#num"); 
+        let count = Number(element.innerHTML) - 1; 
+        
+        if (count == -1) {
+          count = 2
+        }
+        else {
+          count %= 2
+        }
+
+        element.innerHTML = `${count}`;
+        
+        if (count == 0) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+          <div class="home_location"><a href="/cities/경기">경기</a></div>
+          <div class="home_location"><a href="/cities/인천">인천</a></div>
+          <div class="home_location"><a href="/cities/강원">강원</a></div>
+          <div class="home_location"><a href="/cities/충북">충북</a></div>
+          <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        }
+        else if (count == 1) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+          <div class="home_location"><a href="/cities/경북">경북</a></div>
+          <div class="home_location"><a href="/cities/경남">경남</a></div>
+          <div class="home_location"><a href="/cities/대구">대구</a></div>
+          <div class="home_location"><a href="/cities/울산">울산</a></div>
+          <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        }
+        else {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+          <div class="home_location"><a href="/cities/전북">전북</a></div>
+          <div class="home_location"><a href="/cities/전남">전남</a></div>
+          <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        }
+      }
+    }
+  };
+
+  const requestHomeRight = new XMLHttpRequest();
+  const onClickHomeRight = () => {
+    requestHomeRight.open("POST", "/btn_right/", true);
+    requestHomeRight.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    requestHomeRight.send(JSON.stringify({}));
+  };
+
+  requestHomeRight.onreadystatechange = () => {
+    if (requestHomeRight.readyState === XMLHttpRequest.DONE) {
+      if (requestHomeRight.status <= 400) {
+        let element = document.querySelector("#num"); 
+        let count = Number(element.innerHTML) + 1; 
+        
+        count = count % 3
+        element.innerHTML = `${count}`;
+
+        if (count == 0) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+          <div class="home_location"><a href="/cities/경기">경기</a></div>
+          <div class="home_location"><a href="/cities/인천">인천</a></div>
+          <div class="home_location"><a href="/cities/강원">강원</a></div>
+          <div class="home_location"><a href="/cities/충북">충북</a></div>
+          <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        }
+        else if (count == 1) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+          <div class="home_location"><a href="/cities/경북">경북</a></div>
+          <div class="home_location"><a href="/cities/경남">경남</a></div>
+          <div class="home_location"><a href="/cities/대구">대구</a></div>
+          <div class="home_location"><a href="/cities/울산">울산</a></div>
+          <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        }
+        else {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+          <div class="home_location"><a href="/cities/전북">전북</a></div>
+          <div class="home_location"><a href="/cities/전남">전남</a></div>
+          <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        }
+      }
+    }
+  };
+</script>
+
+{% endblock %}

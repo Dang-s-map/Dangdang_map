@@ -138,21 +138,13 @@ def listGo(request):
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 
 
-page_num = 0
+@csrf_exempt
+def btn_left(request):
+    return JsonResponse({})
 
 @csrf_exempt
-def ajax_left():
-    page_num = page_num -1
-    if page_num == -1:
-        page_num = 2
-    else:
-        page_num = page_num % 2
-    return JsonResponse({'num': page_num})
-
-@csrf_exempt
-def ajax_right():
-    page_num = (page_num +1) % 2
-    return JsonResponse({'num': page_num})
+def btn_right(request):
+    return JsonResponse({})
 
 
 

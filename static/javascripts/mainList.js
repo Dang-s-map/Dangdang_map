@@ -164,6 +164,7 @@ const onClickRight = () => {
 };
 
 requestRight.onreadystatechange = () => {
+  
   if (requestRight.readyState === XMLHttpRequest.DONE) {
     if (requestRight.status < 400) {
       const locationBox = document.querySelector("#location-select");
@@ -181,85 +182,99 @@ requestRight.onreadystatechange = () => {
 };
 
 // 메인 지역 고르기 ajax
+  const requestHomeLeft = new XMLHttpRequest();
+  const onClickHomeLeft = () => {
+    requestHomeLeft.open("POST", "/btn_left/", true);
+    requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    requestHomeLeft.send(JSON.stringify({}));
+  };
 
-const requestHomeLeft = new XMLHttpRequest();
-const onClickHomeLeft = () => {
-  requestHomeLeft.open("POST", "/ajax_left/", true);
-  requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  requestHomeLeft.send(JSON.stringify({}));
-};
+  requestHomeLeft.onreadystatechange = () => {
+    if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
+      if (requestHomeLeft.status <= 400) {
+        let element = document.querySelector("#num"); 
+        let count = Number(element.innerHTML) - 1; 
+        
+        if (count == -1) {
+          count = 2
+        }
+        else {
+          count %= 2
+        }
 
-requestHomeLeft.onreadystatechange = () => {
-  if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
-    if (requestHomeLeft.status <= 400) {
-      const { num } = JSON.parse(requestHomeLeft.response);
-      if (num == 0) {
-        const locationSet2 = document.querySelector("#shift-locations");
-        locationSet2.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
-        <div class="home_location"><a href="/cities/경기">경기</a></div>
-        <div class="home_location"><a href="/cities/인천">인천</a></div>
-        <div class="home_location"><a href="/cities/강원">강원</a></div>
-        <div class="home_location"><a href="/cities/충북">충북</a></div>
-        <div class="home_location"><a href="/cities/충남">충남</a></div>`
-      }
-      else if (num == 1) {
-        const locationSet2 = document.querySelector("#shift-locations");
-        locationSet2.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
-        <div class="home_location"><a href="/cities/경북">경북</a></div>
-        <div class="home_location"><a href="/cities/경남">경남</a></div>
-        <div class="home_location"><a href="/cities/대구">대구</a></div>
-        <div class="home_location"><a href="/cities/울산">울산</a></div>
-        <div class="home_location"><a href="/cities/부산">부산</a></div>`
-      }
-      else if (num == 2) {
-        const locationSet2 = document.querySelector("#shift-locations");
-        locationSet2.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
-        <div class="home_location"><a href="/cities/전북">전북</a></div>
-        <div class="home_location"><a href="/cities/전남">전남</a></div>
-        <div class="home_location"><a href="/cities/제주">제주</a></div>`
-      }
-    }
-  }
-};
-
-const requestHomeRight = new XMLHttpRequest();
-const onClickHomeRight = () => {
-  requestHomeRight.open("POST", "/ajax_right/", true);
-  requestHomeRight.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  requestHomeRight.send(JSON.stringify({}));
-};
-
-requestHomeRight.onreadystatechange = () => {
-  if (requestHomeRight.readyState === XMLHttpRequest.DONE) {
-    if (requestHomeRight.status <= 400) {
-      const { num } = JSON.parse(requestHomeRight.response);
-      if (num == 0) {
-        const locationSet = document.querySelector("#shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
-        <div class="home_location"><a href="/cities/경기">경기</a></div>
-        <div class="home_location"><a href="/cities/인천">인천</a></div>
-        <div class="home_location"><a href="/cities/강원">강원</a></div>
-        <div class="home_location"><a href="/cities/충북">충북</a></div>
-        <div class="home_location"><a href="/cities/충남">충남</a></div>`
-      }
-      else if (num == 1) {
-        const locationSet = document.querySelector("#shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
-        <div class="home_location"><a href="/cities/경북">경북</a></div>
-        <div class="home_location"><a href="/cities/경남">경남</a></div>
-        <div class="home_location"><a href="/cities/대구">대구</a></div>
-        <div class="home_location"><a href="/cities/울산">울산</a></div>
-        <div class="home_location"><a href="/cities/부산">부산</a></div>`
-      }
-      else if (num == 2) {
-        const locationSet = document.querySelector("#shift-locations");
-        locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
-        <div class="home_location"><a href="/cities/전북">전북</a></div>
-        <div class="home_location"><a href="/cities/전남">전남</a></div>
-        <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        element.innerHTML = `${count}`;
+        
+        if (count == 0) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+          <div class="home_location"><a href="/cities/경기">경기</a></div>
+          <div class="home_location"><a href="/cities/인천">인천</a></div>
+          <div class="home_location"><a href="/cities/강원">강원</a></div>
+          <div class="home_location"><a href="/cities/충북">충북</a></div>
+          <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        }
+        else if (count == 1) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+          <div class="home_location"><a href="/cities/경북">경북</a></div>
+          <div class="home_location"><a href="/cities/경남">경남</a></div>
+          <div class="home_location"><a href="/cities/대구">대구</a></div>
+          <div class="home_location"><a href="/cities/울산">울산</a></div>
+          <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        }
+        else {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+          <div class="home_location"><a href="/cities/전북">전북</a></div>
+          <div class="home_location"><a href="/cities/전남">전남</a></div>
+          <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        }
       }
     }
-  }
-};
+  };
 
+  const requestHomeRight = new XMLHttpRequest();
+  const onClickHomeRight = () => {
+    requestHomeRight.open("POST", "/btn_right/", true);
+    requestHomeRight.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    requestHomeRight.send(JSON.stringify({}));
+  };
 
+  requestHomeRight.onreadystatechange = () => {
+    if (requestHomeRight.readyState === XMLHttpRequest.DONE) {
+      if (requestHomeRight.status <= 400) {
+        let element = document.querySelector("#num"); 
+        let count = Number(element.innerHTML) + 1; 
+
+        count %= 3
+        
+        element.innerHTML = `${count}`;
+
+        if (count == 0) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/서울">서울</a></div>
+          <div class="home_location"><a href="/cities/경기">경기</a></div>
+          <div class="home_location"><a href="/cities/인천">인천</a></div>
+          <div class="home_location"><a href="/cities/강원">강원</a></div>
+          <div class="home_location"><a href="/cities/충북">충북</a></div>
+          <div class="home_location"><a href="/cities/충남">충남</a></div>`
+        }
+        else if (count == 1) {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/대전">대전</a></div>
+          <div class="home_location"><a href="/cities/경북">경북</a></div>
+          <div class="home_location"><a href="/cities/경남">경남</a></div>
+          <div class="home_location"><a href="/cities/대구">대구</a></div>
+          <div class="home_location"><a href="/cities/울산">울산</a></div>
+          <div class="home_location"><a href="/cities/부산">부산</a></div>`
+        }
+        else {
+          const locationSet = document.querySelector(".shift-locations");
+          locationSet.innerHTML = `<div class="home_location"><a href="/cities/광주">광주</a></div>
+          <div class="home_location"><a href="/cities/전북">전북</a></div>
+          <div class="home_location"><a href="/cities/전남">전남</a></div>
+          <div class="home_location"><a href="/cities/제주">제주</a></div>`
+        }
+      }
+    }
+  };
