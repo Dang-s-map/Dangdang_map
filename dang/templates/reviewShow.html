@@ -1,0 +1,33 @@
+<!-- {% extends 'base.html' %} {% block content %}
+
+{% endblock %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>멍리뷰</div>
+
+  <div> {{ 장소 이름 }}</div>
+
+  {% if %} <!-- 카페일 시 -->
+
+  {% elif %} <!-- 숙소일 시 -->
+
+  {% else %} <!-- 장소일 시 -->
+
+  {% endif %}
+
+
+  <div>이런점이 좋아요!</div>
+  <textarea name="content" id="" cols="30" rows="10"></textarea>
+  <div>이런점이 아쉬워요!</div>
+  <textarea name="content" id="" cols="30" rows="10"></textarea>
+  <button>목록보기</button>
+</body>
+</html>

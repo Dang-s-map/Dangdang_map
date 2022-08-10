@@ -4,7 +4,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse
 from django.db.models import Q
 import csv
-from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+from .models import User, Post, Cafe, Place, Accomodation, Medical
 from django.core import serializers
 
 import json
