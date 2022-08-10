@@ -11,8 +11,8 @@ class User(AbstractUser):
     email = models.EmailField(max_length=128, verbose_name='사용자 이메일', null=True)
     # 유저 부분 
 
-class Location(models.Model):
-    locationName = models.CharField(max_length=100)
+# class Location(models.Model):
+#     locationName = models.CharField(max_length=100)
 
 class Cafe(models.Model):
     name= models.CharField(max_length=100)
@@ -62,7 +62,7 @@ class Medical(models.Model):
     medicalPhone = models.CharField(max_length=100)
     medicalAddress = models.CharField(max_length=100)
     medicalLocation = models.CharField(max_length=100)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    # location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 class Post(models.Model):
     postType = models.CharField(max_length=100)
@@ -70,8 +70,8 @@ class Post(models.Model):
     postBad= models.CharField(max_length=100)
     postImage= models.CharField(max_length=100)
     ranking= models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
-    cafe = models.ForeignKey(Accomodation, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
+    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_post', null=True)
+    accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
+
