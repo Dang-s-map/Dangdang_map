@@ -22,7 +22,6 @@ const onClickGo = () => {
   } else if (cateSelected.includes("장소")) {
     category = "place";
   }
-
   const detailList = document.getElementsByName("detail");
   detailList.forEach((d) => {
     if (d.checked) {
@@ -37,10 +36,13 @@ const onClickGo = () => {
 requestGo.onreadystatechange = () => {
   if (requestGo.readyState === XMLHttpRequest.DONE) {
     if (requestGo.status < 400) {
-      const { location, category, detail } = JSON.parse(requestGo.response);
+      const { list } = JSON.parse(requestGo.response);
 
-      test = document.querySelector(".right");
-      test.innerHTML += `${location} ${category} ${detail}`;
+      lists = JSON.parse(list);
+
+      // 사용할 때는 lists[a]["fields"][b]로 사용하면 됩니다.
+      // a 는 index 번호, b는 속성
+      // ex) list[0]["fields"]["name"] --> 0번째 장소의 이름
     }
   }
 };
@@ -86,37 +88,37 @@ requestCate.onreadystatechange = () => {
       if (cate == "카페") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="dogs-only" />애견 전용
+    <input type="radio" name="detail" value="애견전용" />애견 전용
   </div>
   <div>
-    <input type="radio" name="detail" value="dogs-can" />애견 동반
+    <input type="radio" name="detail" value="애견동반" />애견 동반
   </div>
 </form>`;
       } else if (cate == "숙소") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="hotel" />호텔
+    <input type="radio" name="detail" value="호텔" />호텔
   </div>
   <div>
-    <input type="radio" name="detail" value="motel" />모텔
+    <input type="radio" name="detail" value="모텔" />모텔
   </div>
   <div>
-    <input type="radio" name="detail" value="resort" />리조트
+    <input type="radio" name="detail" value="리조트" />리조트
   </div>
   <div>
-    <input type="radio" name="detail" value="pension" />펜션
+    <input type="radio" name="detail" value="펜션" />펜션
   </div>
 </form>`;
       } else if (cate == "장소") {
         detailBox.innerHTML = `<div class="cate-selected">${cate} 세부사항을 선택하세요!</div><form action="">
   <div>
-    <input type="radio" name="detail" value="park" />공원
+    <input type="radio" name="detail" value="공원" />공원
   </div>
   <div>
-    <input type="radio" name="detail" value="pool" />수영장
+    <input type="radio" name="detail" value="수영장" />수영장
   </div>
   <div>
-    <input type="radio" name="detail" value="beach" />해변
+    <input type="radio" name="detail" value="해변" />해변
   </div>
 </form>`;
       }
@@ -141,14 +143,14 @@ requestLeft.onreadystatechange = () => {
     if (requestLeft.status < 400) {
       const locationBox = document.querySelector("#location-select");
       locationBox.innerHTML = `<div><input type="radio" name="location" value="seoul" />서울</div>
-      <div><input type="radio" name="location" value="gyeonggi" />경기</div>
-      <div><input type="radio" name="location" value="incheon" />인천</div>
-      <div><input type="radio" name="location" value="gangwon" />강원</div>
-      <div><input type="radio" name="location" value="chungbuk" />충북</div>
-      <div><input type="radio" name="location" value="chungnam" />충남</div>
-      <div><input type="radio" name="location" value="deajeon" />대전</div>
-      <div><input type="radio" name="location" value="sejong" />세종</div>
-      <div><input type="radio" name="location" value="jeonbuk" />전북</div>`;
+      <div><input type="radio" name="location" value="경기" />경기</div>
+      <div><input type="radio" name="location" value="인천" />인천</div>
+      <div><input type="radio" name="location" value="강원" />강원</div>
+      <div><input type="radio" name="location" value="충북" />충북</div>
+      <div><input type="radio" name="location" value="충남" />충남</div>
+      <div><input type="radio" name="location" value="대전" />대전</div>
+      <div><input type="radio" name="location" value="세종" />세종</div>
+      <div><input type="radio" name="location" value="전북" />전북</div>`;
     }
   }
 };
@@ -169,14 +171,14 @@ requestRight.onreadystatechange = () => {
     if (requestRight.status < 400) {
       const locationBox = document.querySelector("#location-select");
       locationBox.innerHTML = `<div><input type="radio" name="location" value="jeonnam" />전남</div>
-      <div><input type="radio" name="location" value="gwangju" />광주</div>
-      <div><input type="radio" name="location" value="gyeongbuk" />경북</div>
-      <div><input type="radio" name="location" value="gyeongnam" />경남</div>
-      <div><input type="radio" name="location" value="daegu" />대구</div>
-      <div><input type="radio" name="location" value="ulsan" />울산</div>
-      <div><input type="radio" name="location" value="busan" />부산</div>
-      <div><input type="radio" name="location" value="daejeon" />대전</div>
-      <div><input type="radio" name="location" value="jeju" />제주</div>`;
+      <div><input type="radio" name="location" value="광주" />광주</div>
+      <div><input type="radio" name="location" value="경북" />경북</div>
+      <div><input type="radio" name="location" value="경남" />경남</div>
+      <div><input type="radio" name="location" value="대구" />대구</div>
+      <div><input type="radio" name="location" value="울산" />울산</div>
+      <div><input type="radio" name="location" value="부산" />부산</div>
+      <div><input type="radio" name="location" value="대전" />대전</div>
+      <div><input type="radio" name="location" value="제주" />제주</div>`;
     }
   }
 };

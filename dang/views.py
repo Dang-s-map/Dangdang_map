@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect,HttpResponse
 from django.db.models import Q
 import csv
 from .models import User, Post, Cafe, Place, Accomodation, Medical, Location
+from django.core import serializers
 
 import json
 from django.http import JsonResponse
@@ -131,9 +132,16 @@ def listGo(request):
     cate = req['category'] # cafe, accommodation, place
     type = req['detail'] # (애견동반, 애견전용) or (공원, 명소) 등등
 
+    if cate == 'cafe':
+        list= Cafe.objects.filter(Q(location=loc)& Q(type=type))
+    elif cate == 'accomodation':
+        list= Accomodation.objects.filter(Q(location=loc)& Q(type=type))
+    elif cate == 'place':
+        list= Place.objects.filter(Q(location=loc)& Q(type=type))
 
+    lists = serializers.serialize('json',list)
     # 아래는 test용 JsonResponse 입니다. 수정필요
-    # return JsonResponse(context)
+    return JsonResponse({'list':lists})
 
 ## 상세페이지 부분 입니다. (cafeDetail, accommoDetail, placeDetail)
 
