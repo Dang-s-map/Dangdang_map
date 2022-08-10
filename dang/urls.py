@@ -26,6 +26,6 @@ urlpatterns = [
   path('admin/', admin.site.urls),
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),
-  path('logout/', views.logout, name='logout'),
+  path('logout', views.logout, name='logout'),
   path('mypage/', views.mypage, name='mypage'),
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

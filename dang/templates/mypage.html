@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends 'base.html'%}
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mypage</title>
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}">
 </head>
 <body>
-    {% extends 'base.html'%}
     
     {% block content %}
-    <div class = Like_ls>
-        <h1>찜한 목록</h1>
-    </div>
-    <div class = myReview_ls>
-        <h1>내가 쓴 리뷰</h1>
+    <div class = "container">
+        <div class = "Like_ls">
+            <div style="text-align: center;"><img src = "\static\img\Like_sq.svg" alt=""></div>
+            <div class = "Like_title"><p>내가 찜한 목록</p></div>
+        </div>
+        <div class = "myReview_ls">
+            <div class ="myReview_title">내가 쓴 리뷰</div>
+            <div style="text-align: center;"><img src = "\static\img\myReview_sq.svg" alt=""></div>
+        </div>
     </div>
     {% endblock %}
 </body>

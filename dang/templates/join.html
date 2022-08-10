@@ -5,29 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     {% extends 'base.html'%}
     
     {% block content %}
     <div class = sign_up>
-        <h1>회원가입</h1>
-        <form method="POST"> 
-            {% csrf_token %}
-            아이디: <br>
-            <input name = "username" type = "text">
-            <br>
-            비밀번호: <br>
-            <input name = "password1" type = "password">
-            <br>
-            비밀번호 확인: <br>
-            <input name = "password2" type = "password">
-            <br>
-            이메일: <br>
-            <input name = "email" type = "email">
-            <br><br>
-            <input type = "submit" class= btn value = "Sign up">
-        </form>
+        <h2>회원가입</h2>
+        <div class = "join_form">
+            <form method="POST"> 
+                {% csrf_token %}
+                아이디: <br>
+                <input name = "username" type = "text">
+                <br>
+                비밀번호: <br>
+                <input name = "password1" type = "password">
+                <br>
+                비밀번호 확인: <br>
+                <input name = "password2" type = "password">
+                <br>
+                이메일: <br>
+                <input name = "email" type = "email">
+                <br><br>
+                <input type = "submit" class= btn value = "Sign up">
+            </form>
+        </div>
+        <div style="text-align: center;"><img src = "\static\img\login_sq.svg" alt=""></div>
     </div>
     {% endblock %}
 </body>
