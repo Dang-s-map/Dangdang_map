@@ -33,4 +33,8 @@ urlpatterns = [
   path('btn_left/', views.btn_left, name='btn_left'), #ajax - 어디로 떠날까요
   path('btn_right/', views.btn_right, name='btn_right'), # ajax - 어디로 떠날까요
   path('create/<str:category>/<int:id>', views.create, name='create'),  # 멍초이스 작성페이지
+  path('delete/<int:id>', views.delete, name="delete"), # post 삭제
+  path('update/<int:id>', views.update, name="update"), # post 수정
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
+
