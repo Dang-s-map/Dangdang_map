@@ -322,5 +322,5 @@ def like(request):
         favorite.like = False
         favorite.like = True
     elif favorite.like == False:
-    favorite.save()
+        favorite.save()
     return JsonResponse({'id':fav_id, 'type' : favorite.like})
