@@ -114,3 +114,9 @@ class Jjim(models.Model):
 #     plcae_id
 class Favorite(models.Model):
     like = models.BooleanField(default=False, verbose_name='찜')
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    like = models.BooleanField(default=False)
+    placeType = models.CharField(max_length=50) # 여기에 cafe, accommo, place 세 개만 들어오게! 아니면 choicefeild로 해도 되구
+    placeId = models.IntegerField()

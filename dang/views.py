@@ -6,7 +6,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
-from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
+from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Like
 from django.core.paginator import Paginator
 from .forms import PostForm
 
@@ -83,6 +83,10 @@ def home(request):
 def toMainList(request, category, location, type):
     filteredLocation = 'nothing_yet'
     locations = locationDic.values()
+
+    current_user = request.user # 현재 접속한 user를 가져온다.
+    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+   
     if request.method == "POST":
         location = request.POST["location"]
         category = request.POST["category"]
@@ -100,10 +104,24 @@ def toMainList(request, category, location, type):
             paginator = Paginator(filteredLocation, 5)
         except:
             pass
+
+        for place in filteredLocation:
+            like = me.user_like.filter(Q(placeType='cafe') & Q(placeId=place.id))
+            if not like: # 찜하기 버튼 한 번도 누른 적이 없다면,
+                Like.objects.create(user=me, placeType='cafe', placeId=place.id)
+
+        likes = []
+
+        for place in filteredLocation: # 찜하기를 cafe 목록 순서에 맞춰서 정렬..
+            like = me.user_like.filter(Q(placeType=category) & Q(placeId=place.id))
+            likes.append(like) 
+
+        
+        
         page = request.GET.get('page')
         posts = paginator.get_page(page)
 
-        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
+        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts,'likes':likes}
         return render(request, 'mainList.html', context=context)
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
@@ -286,6 +304,7 @@ def like(request):
     elif favorite.like == False:
         favorite.save()
     return JsonResponse({'id':fav_id, 'type' : favorite.like})
+
 
 def reviewDetail(request, id):
     review = Post.objects.get(id=id)
