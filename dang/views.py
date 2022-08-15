@@ -103,23 +103,22 @@ def toMainList(request, category, location, type):
         elif category == 'accomo':
             filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
 
-    for i in filteredLocation:
-        for jjim in my_jjim_list:
-            if jjim.placeId == i.id:
-                i.favorite = jjim.like
-                i.save()
-            else:
-                i.favorite = False
-                i.save()
+        for i in filteredLocation:
+            for jjim in my_jjim_list:
+                if jjim.placeId == i.id:
+                    i.favorite = jjim.like
+                    i.save()
+                else:
+                    i.favorite = False
+                    i.save()
+        
+        filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
+        paginator = Paginator(filteredLocation, 5)   
+        page = request.GET.get('page')
+        posts = paginator.get_page(page)
 
-      
-    filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
-    paginator = Paginator(filteredLocation, 5)   
-    page = request.GET.get('page')
-    posts = paginator.get_page(page)
-
-    context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
-    return render(request, 'mainList.html', context=context)
+        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
+        return render(request, 'mainList.html', context=context)
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
 def listDetail(request, category, id):
