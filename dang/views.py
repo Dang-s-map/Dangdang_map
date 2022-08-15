@@ -86,9 +86,8 @@ def toMainList(request, category, location, type):
 
     current_user = request.user # 현재 접속한 user를 가져온다.
     me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
-    
-    # my_jjim_list = me.user_like.filter.all()
-    my_jjim_list = Like.objects.filter(Q(user=me) & Q(placeType=category))
+    # 카테고리에 해당하는 내가 찜한 리스트 불러옴
+    my_jjim_list = Like.objects.filter(Q(user=me.id) & Q(placeType=category))
 
     if request.method == "POST":
         location = request.POST["location"]
@@ -102,15 +101,16 @@ def toMainList(request, category, location, type):
             filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
         elif category == 'accomo':
             filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
-
-        for i in filteredLocation:
-            for jjim in my_jjim_list:
-                if jjim.placeId == i.id:
-                    i.favorite = jjim.like
-                    i.save()
-                else:
-                    i.favorite = False
-                    i.save()
+				
+				# 여기서!!! 내가 찜한 적있으면 찜 상태 넣어주고 없으면 False로 보내주는데.. (아래글)
+        for i in filteredLocation:   
+            if i.id in my_jjim_list.values_list('placeId', flat=True):
+                jjim = Like.objects.get(Q(user=me.id)&Q(placeType=category)&Q(placeId=i.id))
+                i.favorite = jjim.like
+                i.save()
+            else:
+                i.favorite = False
+                i.save()
         
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
         paginator = Paginator(filteredLocation, 5)   
