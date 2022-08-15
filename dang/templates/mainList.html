@@ -169,7 +169,7 @@
   <div class="right">
     <div class="list">
       <div class="list-indexing">
-        {% for place, favorite in posts, likes %}
+        {% for place in posts %}
         <div class="list-box-right">
           <div class="img-box"><img src="" alt="" /></div>
           <div class="accom-text-box">
@@ -181,10 +181,13 @@
             <span class="type">{{place.type}}</span>
             <h3 class="phone">{{place.phone}}</h3>
             <div class="like-box">
-              <div class="favorite" id="favorite-{{favorite.id}}">
+              <div class="favorite" id="favorite-{{place.id}}">
                 <div class="like">
-                  <button type="submit" onclick="onClickLike()">
-                    {% csrf_token %} {% if favorite.like %}
+                  <button
+                    type="submit"
+                    onclick="onClickLike('{{category}}',{{place.id}}, '{{place.favorite}}')"
+                  >
+                    {% csrf_token %} {% if place.favorite %}
                     <i class="fas fa-heart"></i>
                     {%else%}
                     <i class="far fa-heart"></i>

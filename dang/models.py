@@ -28,6 +28,7 @@ class Cafe(models.Model):
     img= models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
 
 
 class Place(models.Model):
@@ -43,6 +44,7 @@ class Place(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
 
 
 class Accomodation(models.Model):
@@ -59,6 +61,7 @@ class Accomodation(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
     
 
 class Medical(models.Model):

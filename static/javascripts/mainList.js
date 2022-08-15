@@ -3,33 +3,34 @@
 const requestHomeLeft = new XMLHttpRequest(); //어디로 떠날까요? 부분
 const onClickHome = (direction) => {
   requestHomeLeft.open("POST", "/btn_main/", true);
-  requestHomeLeft.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  requestHomeLeft.send(JSON.stringify({direction: direction}));
+  requestHomeLeft.setRequestHeader(
+    "Content-Type",
+    "application/x-www-form-urlencoded"
+  );
+  requestHomeLeft.send(JSON.stringify({ direction: direction }));
 };
 
 requestHomeLeft.onreadystatechange = () => {
   if (requestHomeLeft.readyState === XMLHttpRequest.DONE) {
     if (requestHomeLeft.status <= 400) {
-      const {direction} = JSON.parse(requestHomeLeft.response); 
-      let element = document.querySelector("#num"); 
-      let count = Number(element.innerHTML); 
-      
+      const { direction } = JSON.parse(requestHomeLeft.response);
+      let element = document.querySelector("#num");
+      let count = Number(element.innerHTML);
+
       if (direction == "left") {
         count -= -1;
         if (count == -1) {
-          count = 2
+          count = 2;
+        } else {
+          count %= 2;
         }
-        else {
-          count %= 2
-        }
-      }
-      else {
+      } else {
         count += 1;
-        count %= 3
+        count %= 3;
       }
 
       element.innerHTML = `${count}`;
-      
+
       if (count == 0) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/서울/애견동반">서울</a></div>
@@ -37,11 +38,10 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/인천/애견동반">인천</a></div>
         <div class="home_location"><a href="/list/cafe/강원/애견동반">강원</a></div>
         <div class="home_location"><a href="/list/cafe/충북/애견동반">충북</a></div>
-        <div class="home_location"><a href="/list/cafe/충남/애견동반">충남</a></div>`
+        <div class="home_location"><a href="/list/cafe/충남/애견동반">충남</a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_1.svg" alt="">'
-      }
-      else if (count == 1) {
+        page.innerHTML = '<img src="/static/img/page_1.svg" alt="">';
+      } else if (count == 1) {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/대전/애견동반">대전</a></div>
         <div class="home_location"><a href="/list/cafe/세종/애견동반">세종</a></div>
@@ -49,18 +49,17 @@ requestHomeLeft.onreadystatechange = () => {
         <div class="home_location"><a href="/list/cafe/경남/애견동반">경남</a></div>
         <div class="home_location"><a href="/list/cafe/대구/애견동반">대구</a></div>
         <div class="home_location"><a href="/list/cafe/울산/애견동반">울산</a></div>
-        <div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>`
+        <div class="home_location"><a href="/list/cafe/부산/애견동반">부산</a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_2.svg" alt="">'
-      }
-      else {
+        page.innerHTML = '<img src="/static/img/page_2.svg" alt="">';
+      } else {
         const locationSet = document.querySelector(".shift-locations");
         locationSet.innerHTML = `<div class="home_location"><a href="/list/cafe/광주/애견동반">광주</a></div>
         <div class="home_location"><a href="/list/cafe/전북/애견동반">전북</a></div>
         <div class="home_location"><a href="/list/cafe/전남/애견동반">전남</a></div>
-        <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`
+        <div class="home_location"><a href="/list/cafe/제주/애견동반">제주</a></div>`;
         const page = document.querySelector(".page_dot");
-        page.innerHTML ='<img src="/static/img/page_3.svg" alt="">'
+        page.innerHTML = '<img src="/static/img/page_3.svg" alt="">';
       }
     }
   }
@@ -151,26 +150,37 @@ changeType.forEach((type) => {
   }
 });
 
-
 //찜하기 기능
 const requestLike = new XMLHttpRequest();
-const onClickLike = (id) => {
+const onClickLike = (category, place_id, favorite) => {
   const url = "/like/";
   requestLike.open("POST", url, true);
   requestLike.setRequestHeader(
     "content-Type",
     "application/x-www-form-urlencoded"
   );
-  requestLike.send(JSON.stringify({ id: id }));
+  console.log(category, place_id, favorite); // test코드
+  requestLike.send(
+    JSON.stringify({
+      category: category,
+      place_id: place_id,
+    })
+  );
 };
 
 requestLike.onreadystatechange = () => {
   if (requestLike.readyState === XMLHttpRequest.DONE) {
     //서버가 응답할 준비를 마침
-    const { id, type } = JSON.parse(requestLike.response);
-    const element = document.querySelector(`#favorite-${id}`);
+    const { place_id } = JSON.parse(requestLike.response);
+    console.log(place_id);
+    const element = document.querySelector(`#favorite-${place_id}`);
     const i = element.querySelector(".like button i");
-    i.classList.toggle("fas");
-    i.classList.toggle("far");
+    const btn = element.querySelector(".like button").innerHTML;
+
+    if (btn == `<i class="fas fa-heart"></i>`) {
+      i.classList.toggle("far");
+    } else {
+      i.classList.toggle("fas");
+    }
   }
 };
