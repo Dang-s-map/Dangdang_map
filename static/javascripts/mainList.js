@@ -170,23 +170,28 @@ changeType.forEach((type) => {
 
 //찜하기 기능
 const requestLike = new XMLHttpRequest();
-const onClickLike = (id) => {
+const onClickLike = (category, place_id) => {
   const url = "/like/";
   requestLike.open("POST", url, true);
   requestLike.setRequestHeader(
     "content-Type",
     "application/x-www-form-urlencoded"
   );
-  requestLike.send(JSON.stringify({ id: id }));
+  console.log(category, place_id); // test코드
+  requestLike.send(
+    JSON.stringify({
+      category: category,
+      place_id: place_id
+    })
+  );
 };
 
 requestLike.onreadystatechange = () => {
   if (requestLike.readyState === XMLHttpRequest.DONE) {
-    //서버가 응답할 준비를 마침
-    const { id, type } = JSON.parse(requestLike.response);
-    const element = document.querySelector(`#favorite-${id}`);
+    const { place_id } = JSON.parse(requestLike.response);
+    const element = document.querySelector(`#favorite-${place_id}`);
     const i = element.querySelector(".like button i");
-    i.classList.toggle("fas");
     i.classList.toggle("far");
+    i.classList.toggle("fas");
   }
 };

@@ -6,7 +6,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
-from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
+from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical, Like
 from django.core.paginator import Paginator
 from .forms import PostForm
 
@@ -83,6 +83,7 @@ def home(request):
 def toMainList(request, category, location, type):
     filteredLocation = 'nothing_yet'
     locations = locationDic.values()
+
     if request.method == "POST":
         location = request.POST["location"]
         category = request.POST["category"]
@@ -95,9 +96,26 @@ def toMainList(request, category, location, type):
             filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
         elif category == 'accomo':
             filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
-
+        try:
+            current_user = request.user # 현재 접속한 user를 가져온다.
+            me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+            # 카테고리에 해당하는 내가 찜한 리스트 불러옴
+            my_jjim_list = Like.objects.filter(Q(user=me.id) & Q(placeType=category))
+                    # 여기서!!! 내가 찜한 적있으면 찜 상태 넣어주고 없으면 False로 보내주는데.. (아래글)
+            for i in filteredLocation:   
+                if i.id in my_jjim_list.values_list('placeId', flat=True):
+                    i.favorite = True
+                    i.save()
+                else:
+                    i.favorite = False
+                    i.save()
+        except:
+            for i in filteredLocation: 
+                i.favorite = False
+                i.save()
+        
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
-        paginator = Paginator(filteredLocation, 5)
+        paginator = Paginator(filteredLocation, 5)   
         page = request.GET.get('page')
         posts = paginator.get_page(page)
 
@@ -276,14 +294,24 @@ def create(request, category, categry_id):
 @csrf_exempt
 def like(request):
     req = json.loads(request.body)
-    fav_id = req['id']
-    favorite = Favorite.objects.get(id=fav_id)
-    if favorite.like == True:
-        favorite.like = False
-        favorite.like = True
-    elif favorite.like == False:
-        favorite.save()
-    return JsonResponse({'id':fav_id, 'type' : favorite.like})
+    category = req['category']
+    place_id = req['place_id']
+
+    try:
+        current_user = request.user # 현재 접속한 user를 가져온다.
+        me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+        try:
+            like = Like.objects.get(Q(user=me) & Q(placeType=category) & Q(placeId=place_id))
+            print(like.placeId)
+            like.delete()
+        except:
+            pass
+            like = Like.objects.create(user=me, placeType=category, placeId=place_id) # 없으면 만들어주라
+            print(like.placeType)
+    except:
+        pass
+
+    return JsonResponse({ 'place_id':place_id, 'category':category })
 
 def reviewDetail(request, id):
     review = Post.objects.get(id=id)

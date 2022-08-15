@@ -131,14 +131,14 @@
                   <div class="ranking-star">{{place.star}}</div>
                 </div>
               </div>
-              <div class="favorite" id="favorite-{{favorite.id}}">
+              <div class="favorite" id="favorite-{{place.id}}">
                 <div class="like">
-                  <button type="submit" onclick="onClickLike()">
-                    {% csrf_token %} {% if favorite.like %}
-                    <i class="fas fa-heart"></i>
-                    {%else%}
-                    <i class="far fa-heart"></i>
-                    {%endif%}
+                  <button type="submit" onclick="onClickLike('{{category}}','{{place.id}}')">
+                  {% csrf_token %} {% if place.favorite %}
+                  <i class="fas fa-heart"></i>
+                  {%else%}
+                  <i class="far fa-heart"></i>
+                  {%endif%}
                   </button>
                 </div>
               </div>

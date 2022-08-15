@@ -29,6 +29,7 @@ class Cafe(models.Model):
     img= models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False)
 
 
 class Place(models.Model):
@@ -44,6 +45,7 @@ class Place(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False)
 
 
 class Accomodation(models.Model):
@@ -60,6 +62,7 @@ class Accomodation(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False)
     
 
 class Medical(models.Model):
@@ -67,6 +70,7 @@ class Medical(models.Model):
     medicalPhone = models.CharField(max_length=100)
     medicalAddress = models.CharField(max_length=100)
     medicalLocation = models.CharField(max_length=100)
+    favorite = models.BooleanField(default=False)
     # location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
 class Post(models.Model):
@@ -82,15 +86,10 @@ class Post(models.Model):
 
 
 ## 찜하기 구상중
-class Jjim(models.Model):
-    like = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_jjim')
-
-    # place_type = models.ChoiceFeild("cafe","place","accomo")  # 코드리뷰
-    # id =
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_jjim')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_jjim')
-    accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_jjim')
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
+    placeType = models.CharField(max_length=50) # 여기에 cafe, accommo, place 세 개만 들어오게! 아니면 choicefeild로 해도 되구
+    placeId = models.IntegerField()
 
 # 찜하기를 위해서 필요한 것들 -> user id와 cafe(or place or accomo)의 id
 # 찜 불러오기를 위해서 필요한 것들 -> 
