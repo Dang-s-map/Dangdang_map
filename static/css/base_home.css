@@ -46,7 +46,7 @@ a {
   background-color: rgba(255, 240, 161, 1);
 }
 
-.banner img{
+.banner img {
   object-fit: cover;
   margin: 20px 0 0 0;
 }
@@ -61,6 +61,7 @@ a {
   padding: 70px 220px 0;
   font-size: xx-large;
 }
+
 .home_location_list {
   display: flex;
   justify-content: left;
@@ -76,7 +77,7 @@ a {
   height: 151px;
 }
 
-.home_location img{
+.home_location img {
   object-fit: cover;
   width: 154px;
   height: 155px;
@@ -97,7 +98,7 @@ a {
 }
 
 #num {
-  display:none
+  display: none
 }
 
 .home_best_container {
@@ -111,25 +112,27 @@ a {
   height: 45vh;
 
 }
+
 .best_shift_lists {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
 }
+
 .home_best_item {
   border: 1px solid rgb(102, 97, 97);
 }
 
 /* mypage.html */
-.Like_ls{
+.Like_ls {
   position: relative;
   text-align: center;
   color: rgb(255, 255, 255);
   padding-bottom: 30px;
 }
 
-.Like_title{
+.Like_title {
   position: absolute;
   top: 43px;
   left: 70px;
@@ -146,14 +149,14 @@ a {
 
 }
 
-.myReview_ls{
+.myReview_ls {
   position: relative;
   text-align: center;
   color: rgb(255, 255, 255);
   padding-bottom: 50px;
 }
 
-.myReview_title{
+.myReview_title {
   position: absolute;
   top: 43px;
   left: 70px;
@@ -170,7 +173,7 @@ a {
 }
 
 /* Login.html */
-.log_in{
+.log_in {
   position: relative;
   text-align: left;
   color: rgb(26, 26, 26);
@@ -178,13 +181,14 @@ a {
   background-color: #FFF0A1;
 }
 
-.login_form{
+.login_form {
   position: absolute;
   top: 200px;
   right: 300px;
   font-size: 1.5rem;
   font-family: 'Dongle', sans-serif;
 }
+
 .log_in h1 {
   position: absolute;
   top: 150px;
@@ -193,7 +197,7 @@ a {
   font-size: 3rem;
 }
 
-.google_login{
+.google_login {
   position: absolute;
   top: 300px;
   right: 30px;
@@ -208,7 +212,7 @@ a {
   padding-right: 10px;
 }
 
-.with_join{
+.with_join {
   position: absolute;
   top: 370px;
   right: 30px;
@@ -232,7 +236,8 @@ a {
 }
 
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
   width: 354px;
   padding: 12px 5px;
   margin: 8px 0;
@@ -260,7 +265,7 @@ body {
   background-color: #FFF0A1;
 }
 
-.sign_up{
+.sign_up {
   position: relative;
   text-align: left;
   color: rgb(26, 26, 26);
@@ -268,7 +273,7 @@ body {
   background-color: #FFF0A1;
 }
 
-.join_form{
+.join_form {
   position: absolute;
   top: 200px;
   right: 300px;
@@ -285,7 +290,9 @@ body {
 }
 
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text],
+input[type=password],
+input[type=email] {
   width: 354px;
   padding: 12px 5px;
   margin: 8px 0;
@@ -307,29 +314,29 @@ input[type=submit] {
   font-size: 1.5rem;
 }
 
-p1{
+p1 {
   position: absolute;
   top: 300px;
   right: 5px;
 }
 
 /*footer*/
-.footer-container{
+.footer-container {
   background-color: #FFF6C3;
 }
 
-.footer-logo img{
+.footer-logo img {
   max-width: 100%;
   max-height: 100%;
   padding: 10px;
 }
 
-.footer-logo{
+.footer-logo {
   height: 80px;
   width: 80px;
 }
 
-.footer_text{
+.footer_text {
   font-size: 1rem;
   font-family: 'Dongle', sans-serif;
 }

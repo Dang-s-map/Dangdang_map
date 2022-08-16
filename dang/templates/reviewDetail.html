@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+{% extends "base.html" %} {% block content %}
+
 <body>
   {% extends 'base.html'%}
   {% block content %}
@@ -14,9 +8,9 @@
   <div>{{placeName}}리뷰썻음</div>
 
 
-  <div class ="back_to_list">
+  <div class="back_to_list">
     <a href="/detail/{{post.postType}}/{{post.placeId}}">목록으로</a>
   </div>
   {% endblock %}
 </body>
-</html>
+{% endblock %}

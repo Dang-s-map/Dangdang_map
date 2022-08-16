@@ -1,6 +1,6 @@
 .review_container {
     background-color: #FFF0A1;
-    height: 1800px;
+    margin-bottom: 200px;
 }
 
 .review_top {
@@ -74,11 +74,13 @@
     text-align: center;
     margin: 0 auto;
     margin-top: 100px;
+    margin-bottom: 150px;
 }
 
 .create_btn[type=submit]:hover {
     background: #BDDFFF;
     color: white;
+
 }
 
 .post_review {

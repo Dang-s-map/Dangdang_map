@@ -1,13 +1,4 @@
 {% extends "base.html" %} {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>create review</title>
-</head>
 
 <body>
   <div class="review_container">
@@ -32,10 +23,7 @@
           별점 선택: <input name="ranking" type="integer">
           <br>
           <div class="post-good">
-            이런 점이 좋았어요 :
-            <br>
-            별점 선택: <input name="ranking" type="integer">
-            <br>
+
             <div class="post-good">
               이런 점이 좋았어요 :
               <br>
@@ -49,11 +37,9 @@
             </div>
 
           </div>
-          <button class="create_btn" type="submit">Create</button>
-      </div>
+        </div>
+        <button class="create_btn" type="submit">Create</button>
     </form>
   </div>
 </body>
-
-</html>
 {% endblock %}

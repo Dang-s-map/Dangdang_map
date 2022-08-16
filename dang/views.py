@@ -370,6 +370,5 @@ def reviewDetail(request, id):
         place = Accomodation.objects.get(id=review.placeId)
     
     context = {'review':review, 'place':place}
-
-        return render(request, 'reviewDetail.html', context=context)
+    return render(request, 'reviewDetail.html', context=context)
 
