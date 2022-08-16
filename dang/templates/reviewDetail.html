@@ -9,7 +9,14 @@
 <body>
   {% extends 'base.html'%}
   {% block content %}
-  
+  <div>리뷰디테일 페이지 입니다.</div>
+
+  <div>{{placeName}}리뷰썻음</div>
+
+
+  <div class ="back_to_list">
+    <a href="/detail/{{post.postType}}/{{post.placeId}}">목록으로</a>
+  </div>
   {% endblock %}
 </body>
 </html>

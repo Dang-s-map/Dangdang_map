@@ -7,7 +7,7 @@ from unicodedata import category
 from django.shortcuts import render, redirect,HttpResponse, get_object_or_404
 from django.db.models import Q
 import csv
-from .models import Favorite, User, Post, Cafe, Place, Accomodation, Medical
+from .models import User, Post, Cafe, Place, Accomodation, Medical, Like
 from django.core.paginator import Paginator
 from .forms import PostForm
 
@@ -84,6 +84,17 @@ def home(request):
 def toMainList(request, category, location, type):
     filteredLocation = 'nothing_yet'
     locations = locationDic.values()
+    
+    try:
+        current_user = request.user # 현재 접속한 user를 가져온다.
+        me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+        try:
+            my_jjim_list = Like.objects.filter(Q(user=me.id) & Q(placeType=category))
+        except:
+            my_jjim_list = ''
+    except:
+        my_jjim_list = ''
+
     if request.method == "POST":
         location = request.POST["location"]
         category = request.POST["category"]
@@ -96,13 +107,26 @@ def toMainList(request, category, location, type):
             filteredLocation=Place.objects.filter(Q(location=location)&Q(type=type))
         elif category == 'accomo':
             filteredLocation=Accomodation.objects.filter(Q(location=location)&Q(type=type))
-
+				
+        for i in filteredLocation:
+            if my_jjim_list:   
+                if i.id in my_jjim_list.values_list('placeId', flat=True):
+                    jjim = Like.objects.get(Q(user=me)&Q(placeType=category)&Q(placeId=i.id))
+                    i.favorite = jjim.like
+                    i.save()
+                else:
+                    i.favorite = False
+                    i.save()
+            else:
+                i.favorite = False
+                i.save()
+        
         filteredLocation = filteredLocation.order_by('id') # 가까운 순으로 정렬하면 좋을듯
-        paginator = Paginator(filteredLocation, 5)
+        paginator = Paginator(filteredLocation, 5)   
         page = request.GET.get('page')
         posts = paginator.get_page(page)
 
-        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts}
+        context = {'category': category ,'location': location,'locations': locations, 'type': type,'posts': posts }
         return render(request, 'mainList.html', context=context)
 
 ## mainList 목록눌렀을때 상세페이지로 이동 (listDetail.html)
@@ -113,8 +137,15 @@ def listDetail(request, category, id):
         here = Place.objects.get(id=id)
     elif category == 'accomo':
         here = Accomodation.objects.get(id=id)
-    context = {'category': category ,'here': here}
+
+    try:
+        reviews = Post.objects.filter(placeId=id)
+    except:
+        reviews = '아직 리뷰가 없습니다.'
+        pass
+    context = {'category': category ,'here': here, 'reviews': reviews}
     return render(request, 'listDetail.html', context=context)
+    Like.objects.filter(Q(user=me.id) & Q(placeType=category))
 
 def medicalList(request): # main에서 응급댕댕 선택시
     return render(request, 'medicalList.html')
@@ -195,26 +226,18 @@ def delete(request, id):
     Post.objects.filter(id=id).delete()
     return redirect("/") # 삭제하고 나면 어디로 보낼까요?
 
-def update(request, id): # url수정하기
-    post = get_object_or_404(Post, pk=id)
+def update(request, id): 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post=form.save()
-            post.save()
-        
-            # if 문으로 어떤 카테고리인지 체크 -> cafe라면 accomo, place는 null 값이기 때문에
-            if post.cafe:
-                cate = 'cafe'
-            elif post.place:
-                cate = 'place'
-            elif post.accomo:
-                cate = 'accomo'
+        postGood = request.POST["postGood"]
+        postBad = request.POST["postBad"]
+        postImage = request.FILES['postImage']
+        ranking = request.POST["ranking"]
 
-            return redirect(f"/post/{cate}/{id}")
-    form = PostForm(instance=post)
-    return render(request, "reviewWrite.html", {'form':form})
-
+        Post.objects.filter(id=id).update(postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking)
+        return redirect(f"reviewDetail/{id}")
+    post = Post.objects.get(id=id)
+    context = {"post":post}
+    return render(request, "reviewWrite.html",context=context)
 
 ### db에 csv 파일 넣는 함수입니다.
 ### migrations 날리고 dbsqlite 날리고 사용해야 합니다. 한번만 작동해주세요..!! 여러번 하면 여러번 들어가요
@@ -278,63 +301,75 @@ def csvToModel(request):
 #         form=PostForm()
 #     return render(request, 'reviewWrite.html', {'form':form , 'post':post})
 
-def create(request,category,categry_id):
-    current_user = request.user # 현재 접속한 user를 가져온다.
-    me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+def create(request,category,category_id):
+    try:
+        current_user = request.user # 현재 접속한 user를 가져온다.
+        me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
 
-    if category == 'cafe':
-        place = Cafe.objects.get(id=categry_id)
-    elif category == 'accomo':
-        place = Accomodation.objects.get(id=categry_id)
-    else:
-        place = Place.objects.get(id=categry_id)
+        if category == 'cafe':
+            place = Cafe.objects.get(id=category_id)
+        elif category == 'accomo':
+            place = Accomodation.objects.get(id=category_id)
+        else:
+            place = Place.objects.get(id=category_id)
 
-    placeName = place.name
+        placeName = place.name
+        location=place.location
 
-    if request.method == "POST":
-        postGood = request.POST["postGood"]
-        postBad = request.POST["postBad"]
-        postImage = request.FILES['postImage']
-        ranking = request.POST["ranking"]
+        if request.method == "POST":
+            postGood = request.POST["postGood"]
+            postBad = request.POST["postBad"]
+            postImage = request.POST['postImage']
+            ranking = request.POST["ranking"]
+            new_post=Post.objects.create(user=me,postType=category,postImage=postImage,postGood=postGood,postBad=postBad,ranking=ranking, placeId=category_id)
 
-        Post.objects.create(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
-        return redirect(f"/reviewDetail/{category}/{categry_id}") ## 여기 수정해야 함!
-
-    return render(request, 'reviewWrite.html', {'placeName':placeName})
+            return render(request, 'reviewDetail.html', {'placeName':placeName,'post':new_post}) ## 여기 수정해야 함!
+        else:
+            return render(request, 'reviewWrite.html', {'placeName':placeName,'location':location, 'category':category})
+    except:
+        #로그인을 해주세요!
+        return redirect(f"/detail/{category}/{category_id}")
 
 
 @csrf_exempt
 def like(request):
     req = json.loads(request.body)
-    fav_id = req['id']
-    favorite = Favorite.objects.get(id=fav_id)
-    if favorite.like == True:
-        favorite.like = False
-        favorite.like = True
-    elif favorite.like == False:
-        favorite.save()
-    return JsonResponse({'id':fav_id, 'type' : favorite.like})
+    category = req['category']
+    place_id = req['place_id']
 
-def reviewDetail(request, id, category):
+    try:
+        current_user = request.user # 현재 접속한 user를 가져온다.
+        me = User.objects.get(username=current_user) # User db에서 현재 접속한 user를 찾는다.
+        isLogin = True
+        try:
+            like = Like.objects.get(Q(user=me) & Q(placeType=category) & Q(placeId=place_id))
+        except:
+            Like.objects.create(user=me, placeType=category, placeId=place_id) # 없으면 만들어주라
+
+        like = Like.objects.get(Q(user=me) & Q(placeType=category) & Q(placeId=place_id))
+        if like.like == True:
+            like.like = False
+            like.save()
+        elif like.like == False:
+            like.like = True
+            like.save()
+    except:
+        isLogin = False
+
+    return JsonResponse({ 'place_id':place_id, 'isLogin':isLogin })
+
+def reviewDetail(request, id):
     review = Post.objects.get(id=id)
+    category = review.postType
 
-    ##if review.cafe_post: # 역참조 test 해봐야 함. 안 될 수도
-    ##    placeInfo = review.cafe_post.all()
-    ##elif review.place_post:
-    ##    placeInfo = review.place_post.all()
-    ##elif review.accomo_post:
-    ##    placeInfo = review.accomo_post.all()
-
-    if request.method == "GET":
-        postGood = request.get["postGood"]
-        postBad = request.get["postBad"]
-        postImage = request.get['postImage']
-        ranking = request.get["ranking"]
-
-        Post.objects.get(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
-        print(Post.objects.all())
+    if category == 'cafe':
+        place = Cafe.objects.get(id=review.placeId)
+    elif category == 'place':
+        place = Place.objects.get(id=review.placeId)
+    else:
+        place = Accomodation.objects.get(id=review.placeId)
     
-        context = {'review':review, 'category': category}
+    context = {'review':review, 'place':place}
 
         return render(request, 'reviewDetail.html', context=context)
 

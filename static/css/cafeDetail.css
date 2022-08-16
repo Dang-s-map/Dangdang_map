@@ -58,39 +58,99 @@ body{
     font-family: 'Dongle', sans-serif;
 }
 
-.back_photo{
-    top: 50px;
-    left: 120px;
+
+.mini1{
+    position: absolute;
+    top: 580px;
+    left: 530px;
 }
 
-.place-detail-info{
-    position: relative;
-    top: 200px;
-    color: rgb(18, 18, 18);
-    font-size: 1.5rem;
-    font-family: 'Dongle', sans-serif;
+.mini2{
+    position: absolute;
+    top: 250px;
+    left: 530px;
+}
+
+.place-star{
+    position: absolute;
+    top: 180px;
+    left: 700px;
+}
+
+.review_star{
+    position: absolute;
+    top: 150px;
+    left: 580px;
 }
 
 .info-text-box{
+    position: absolute;
     width: 90%;
     margin: 10px auto;
 }
 
-.info-text{
-    border: 1px solid red;
+.info_text_line{
+    position: absolute;
     float: left;
+    top: 200px;
+    left: 15px;
     width:100%;
     box-sizing: border-box;
 }
 
-.info-text-desc{
-    border: 3px solid rgb(18, 18, 18);
-    background-color: #FFFFFF;
+.info-text1{
+    position: absolute;
     float: left;
-    margin-left: 5%;
-    width: 50%;
-    box-sizing: border-box;
-    border-radius: 5px;
+    width:100%;
+    top: 70px;
+    left: 10px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 2rem;   
+}
+.info-text2{
+    position: absolute;
+    float: left;
+    width:100%;
+    top: 120px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 2rem;   
+}
+.info-text3{
+    position: absolute;
+    float: left;
+    width:100%;
+    top: 170px;
+    left: 0px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 2rem;   
+}
+.info-text4{
+    position: absolute;
+    float: left;
+    width:100%;
+    top: 220px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 2rem;   
+}
+
+.info-text-desc{
+    position: absolute;
+    float: left;
+    width:80%;
+    top: 480px;
+    left: 15px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 1.5rem;
+}
+
+.no_detail {
+    position: absolute;
+    float: left;
+    width:80%;
+    top: 480px;
+    left: 15px;
+    font-family: 'Dongle', sans-serif;
+    font-size: 1.5rem;
 }
 
 .detail_map{

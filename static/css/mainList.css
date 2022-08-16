@@ -46,15 +46,20 @@
 }
 
 .mainList .location-img {
-  width: 75px;
-  height: 75px;
-  border: #000000 solid 1px;
+  padding: 0 10px 0 0;
 }
+
+.mainList .location-img img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+}
+
 
 .mainList .location-text-col-box {
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 15px;
+  padding: 0 15px 0 0;
   gap: 0.5rem;
 }
 

@@ -20,18 +20,19 @@
         <button>Delete</button>
       </div>
     </div>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form method="POST">
       <div class="post_container">
-
-        <form action="/create" method="POST" enctype="multipart/form-data">
-
-
-          {% csrf_token %}
-          <div class="post_review">
-            <p>
-              다녀온 곳: {{placeName}}
-            </p>
-            <input type="file" name="postImage" />
+        {% csrf_token %}
+        <div class="post_review">
+          <p>
+            다녀온 곳: {{placeName}}
+          </p>
+          <input type="file" name="postImage" />
+          <br>
+          별점 선택: <input name="ranking" type="integer">
+          <br>
+          <div class="post-good">
+            이런 점이 좋았어요 :
             <br>
             별점 선택: <input name="ranking" type="integer">
             <br>

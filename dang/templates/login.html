@@ -47,12 +47,13 @@
                 password: <br>
                 <input name="password" type="password">
                 <br><br>
-                <input type = "submit" class= btn value = "Login">
-                <a href="/join/">
-                    회원가입
+                <input type = "submit" class= btn value = "Submit">
+                <div class ="google_login"><a href = "{% provider_login_url 'google'%}">Google Login</a></div>
+                <div class="with_join"><p>아직 회원이 아니신가요?</p></div>
+                <div class ="login_join"><a href="/join/">
+                    Join
                     <!-- <img src="\static\img\Join.svg" alt=""> -->
-                </a>
-                <a href = "{% provider_login_url 'google'%}">구글 로그인</a>
+                </a></div>
             </form>
         </div>
         <div style="text-align: center;"><img src="\static\img\login_sq.svg" alt=""></div>

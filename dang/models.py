@@ -30,6 +30,7 @@ class Cafe(models.Model):
     img= models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
 
 
 class Place(models.Model):
@@ -45,6 +46,7 @@ class Place(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
 
 
 class Accomodation(models.Model):
@@ -61,6 +63,7 @@ class Accomodation(models.Model):
     img = models.ImageField(upload_to='', null=True)
     mapx = models.CharField(max_length=100, null=True)
     mapy = models.CharField(max_length=100, null=True)
+    favorite = models.BooleanField(default=False) # 임시 필드?
     
 
 class Medical(models.Model):
@@ -83,38 +86,9 @@ class Post(models.Model):
     # accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_post', null=True)
 
 
-
-## 찜하기 구상중
-class Jjim(models.Model):
+# 찜하기
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
     like = models.BooleanField(default=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_jjim')
-
-    # place_type = models.ChoiceFeild("cafe","place","accomo")  # 코드리뷰
-    # id =
-    cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_jjim')
-    place = models.ForeignKey(Place, on_delete=models.CASCADE, related_name='place_jjim')
-    accomo = models.ForeignKey(Accomodation, on_delete=models.CASCADE, related_name='accomo_jjim')
-
-# 찜하기를 위해서 필요한 것들 -> user id와 cafe(or place or accomo)의 id
-# 찜 불러오기를 위해서 필요한 것들 -> 
-# 마이페이지 찜 리스트 -> 역참조 하면 됨
-
-## djanago many to One
-## django 기능임 
-# 
-#원래 하려던 거는 태그
-
-
-# ## foreign key 
-# class User():
-#     jjim_cafe foreignkey
-
-# jjimcafe.set.creat() 이거 함수 찾아보기
-
-# 플레이스타입도 받고 플레이스 아이디도 받고
-# class JJim:
-#     user-foreignkey
-#     plcae_type
-#     plcae_id
-class Favorite(models.Model):
-    like = models.BooleanField(default=False, verbose_name='찜')
+    placeType = models.CharField(max_length=50) # 여기에 cafe, accommo, place 세 개만 들어오게! 아니면 choicefeild로 해도 되구
+    placeId = models.IntegerField()

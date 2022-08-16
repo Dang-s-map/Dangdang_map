@@ -71,8 +71,15 @@ a {
 }
 
 .home_location {
+  display: flex;
   width: 151px;
   height: 151px;
+}
+
+.home_location img{
+  object-fit: cover;
+  width: 154px;
+  height: 155px;
 }
 
 .shift-locations {
@@ -82,10 +89,6 @@ a {
   width: 100%;
   gap: 2rem;
   padding: 0;
-}
-
-.home_location {
-  border: 1px solid rgb(102, 97, 97);
 }
 
 .shift-btn-left img:hover,
@@ -129,11 +132,15 @@ a {
 .Like_title{
   position: absolute;
   top: 43px;
-  left: 140px;
-  font-size: 1.5rem;
+  left: 70px;
+  font-size: 1.2rem;
+  font-family: 'Dongle', sans-serif;
   background-color: #BDDFFF;
-  padding: 14px;
-  border: 3px solid rgb(9, 9, 9);
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border: 2px solid rgb(9, 9, 9);
   margin: 3px;
   border-radius: 5px;
 
@@ -149,13 +156,17 @@ a {
 .myReview_title{
   position: absolute;
   top: 43px;
-  left: 140px;
-  font-size: 1.5rem;
+  left: 70px;
+  font-size: 1.2rem;
+  font-family: 'Dongle', sans-serif;
   background-color: #BDDFFF;
-  padding: 14px;
-  border: 3px solid rgb(9, 9, 9);
+  border: 2px solid rgb(9, 9, 9);
   margin: 3px;
   border-radius: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* Login.html */
@@ -169,17 +180,55 @@ a {
 
 .login_form{
   position: absolute;
-  top: 250px;
+  top: 200px;
   right: 300px;
   font-size: 1.5rem;
   font-family: 'Dongle', sans-serif;
 }
 .log_in h1 {
   position: absolute;
-  top: 200px;
+  top: 150px;
   right: 450px;
   font-family: 'Dongle', sans-serif;
   font-size: 3rem;
+}
+
+.google_login{
+  position: absolute;
+  top: 300px;
+  right: 30px;
+  font-family: 'Dongle', sans-serif;
+  border: 4px solid rgb(11, 11, 11);
+  background-color: #F5F5F5;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.with_join{
+  position: absolute;
+  top: 370px;
+  right: 30px;
+  font-family: 'Dongle', sans-serif;
+}
+
+.login_join {
+  position: absolute;
+  top: 400px;
+  right: 30px;
+  font-family: 'Dongle', sans-serif;
+  border: 4px solid rgb(11, 11, 11);
+  background-color: #F5F5F5;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  border-radius: 7px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 
@@ -199,6 +248,7 @@ input[type=submit] {
   margin: 2px 0;
   display: inline-block;
   border: 3px solid rgb(11, 11, 11);
+  background-color: #F5F5F5;
   box-sizing: border-box;
   border-radius: 5px;
   font-family: 'Dongle', sans-serif;

@@ -17,25 +17,33 @@
     <div class="detail-info">
     <div class ="detail_title">
       <div class = img_box>
-        <img src ="\static\img\detail_title.svg" alt="">
+        <div style="text-align: center;"><img src ="\static\img\detail_title.svg" alt="">
+        <div style="text-align: center;"><img src = "\static\img\detail_titleback.svg" alt="">
+          <div class = "mini1"><img src="\static\img\detail_mini1.svg" alt=""></div>
+          <div class = "mini2"><img src="\static\img\detail_mini2.svg" alt=""></div>
         <h1>{{here.name}}</h1>
         <div class="place-star">{{here.star}}</div>
+        <!--대충리뷰자리 잡아놓기용-->
+        <div class ="review_star"><img src ="\static\img\review_star.svg" alt="">
         <div class="place-detail-info">
           <div class="info-logo-box"></div>
           <div class="info-text-box">
             <div class = "info_text_line"></div>
-              <div class="info-text">{{here.address}}</div>
-              <div class="info-text">{{here.phone}}</div>
-              <div class="info-text"><a href="{{here.link1}}">[홈페이지 바로가기]</a></div>
-              <div class="info-text"><a href="{{here.link2}}">[네이버 지도로 보기]</a></div>
+              <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
+              <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
+              <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지 바로가기]</a></div>
+              <div class="info-text4"><a href="{{here.link2}}"><i class="fa-solid fa-map-location-dot"></i>[네이버 지도로 보기]</a></div>
             </div>
-            <div class="info-text-desc">{{here.desc}}</div>
-          </div>
+            {% if here.desc %}
+              <div class="info-text-desc">{{here.desc}}</div>
+            {% else %}
+              <div class ="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
+              
+            {% endif %}
+            
+          </div>      
         </div>
       </div>
-    </div>
-    <div class ="back_photo">
-      <div style="text-align: center;"><img src = "\static\img\detail_titleback.svg" alt=""></div>
     </div>
   </div>
 
@@ -55,10 +63,29 @@
       <a href="/create/{{category}}/{{here.id}}">WriteReview!</a>
     </div>
   </div>
+  <div class="review_list">
+    {% for review in reviews %}
+      <div class="review">
+        <div>
+          {% if review.postImage %}
+            <div>리뷰이미지 있음</div> 
+          {% else %}
+            <img src="\static\img\nophoto.png" alt="">
+          {% endif %}
+        </div>
+        <div>작성자: {{review.user.username}}</div>
+        <div>별점: {{review.ranking}}</div>
+        <div>좋은점: {{review.postGood}}</div>
+        <div>싫은점: {{review.postBad}}</div>
+        <div>유형: {{review.postType}}</div>
+        <hr>
+      </div>
+    {% endfor %}
+  </div>
   
   <!-- 목록보기--> 
   <div class ="back_to_list">
-    <a href="/cafe">목록으로</a>
+    <a href="/list/{{category}}/{{here.location}}/{{here.type}}">목록으로</a>
   </div>
 </body>
 {% endblock %}

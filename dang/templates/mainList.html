@@ -1,37 +1,82 @@
-{% extends "base.html" %} {% block content %}
-{% load static %}
+{% extends "base.html" %} {% block content %} {% load static %}
 <div class="mainList">
   <div class="left">
     <form class="left-form" action="/list/cafe/서울/애견동반" method="post">
       {% csrf_token %}
-      <!-- 강원도를 선택하셨군요! -->
       <div class="location-header-row-box">
-        <div class="location-img"></div>
+        <div class="location-img">
+          <img src="/static/img/main_loc/circle-{{location}}.png" alt="" />
+        </div>
         <div class="location-text-col-box">
           <h1 class="selected-location">{{location}}</h1>
-          <h3 class="fighting">훌륭한 선택입니다!<br>댕댕이와 즐거운 여행되세요!</h3>
+          <h3 class="fighting">
+            훌륭한 선택입니다!<br />댕댕이와 즐거운 여행되세요!
+          </h3>
         </div>
       </div>
       <fieldset id="group1">
         <div class="left-cate">
           {% if category == "cafe" %}
-          <input type="radio" name="category" value="cafe" id="form-category" checked />
+          <input
+            type="radio"
+            name="category"
+            value="cafe"
+            id="form-category"
+            checked
+          />
           {% else %}
           <input type="radio" name="category" value="cafe" id="form-category" />
           {% endif %}
-          <label for="form-category" class="small-category" onclick="onClickCate(`카페`)">멍카페</label>
+          <label
+            for="form-category"
+            class="small-category"
+            onclick="onClickCate(`카페`)"
+            >멍카페</label
+          >
           {% if category == "accomo" %}
-          <input type="radio" name="category" value="accomo" id="form-category2" checked />
+          <input
+            type="radio"
+            name="category"
+            value="accomo"
+            id="form-category2"
+            checked
+          />
           {% else %}
-          <input type="radio" name="category" value="accomo" id="form-category2" />
+          <input
+            type="radio"
+            name="category"
+            value="accomo"
+            id="form-category2"
+          />
           {% endif %}
-          <label for="form-category2" class="small-category" onclick="onClickCate(`숙소`)">멍숙소</label>
+          <label
+            for="form-category2"
+            class="small-category"
+            onclick="onClickCate(`숙소`)"
+            >멍숙소</label
+          >
           {% if category == "place" %}
-          <input type="radio" name="category" value="place" id="form-category3" checked />
+          <input
+            type="radio"
+            name="category"
+            value="place"
+            id="form-category3"
+            checked
+          />
           {% else %}
-          <input type="radio" name="category" value="place" id="form-category3" />
+          <input
+            type="radio"
+            name="category"
+            value="place"
+            id="form-category3"
+          />
           {% endif %}
-          <label for="form-category3" class="small-category" onclick="onClickCate(`장소`)">멍놀자</label>
+          <label
+            for="form-category3"
+            class="small-category"
+            onclick="onClickCate(`장소`)"
+            >멍놀자</label
+          >
         </div>
       </fieldset>
       <fieldset id="group3">
@@ -40,11 +85,11 @@
           <div class="option-col">
             <label class="type-menu">
               <input type="radio" name="type" value="애견전용" />
-              <span></span> 애견전용
+              <span></span> 애견전용 카페
             </label>
             <label class="type-menu">
               <input type="radio" name="type" value="애견동반" />
-              <span></span> 애견동반
+              <span></span> 애견동반 카페
             </label>
           </div>
           {% elif category == "accomo" %}
@@ -94,24 +139,31 @@
       </fieldset>
       <fieldset id="group2">
         <div class="form-location">
-          {% for loc in locations %}
-          {% if loc == location %}
-          <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}" checked />
+          {% for loc in locations %} {% if loc == location %}
+          <input
+            type="radio"
+            name="location"
+            value="{{loc}}"
+            id="location-{{loc}}"
+            checked
+          />
           <label for="location-{{loc}}" class="area-label">{{loc}}</label>
           {% else %}
-          <input type="radio" name="location" value="{{loc}}" id="location-{{loc}}" />
+          <input
+            type="radio"
+            name="location"
+            value="{{loc}}"
+            id="location-{{loc}}"
+          />
           <label for="location-{{loc}}" class="area-label">{{loc}}</label>
-          {% endif %}
-          {% endfor %}
+          {% endif %} {% endfor %}
         </div>
       </fieldset>
       <!-- 아래줄 동작에 필요 -->
       <div class="selected-category">카페 옵션선택</div>
       <div class="selected-type">{{type}}</div>
       <div>
-        <button class="search-btn" type="submit" value="SUBMIT">
-          SEARCH
-        </button>
+        <button class="search-btn" type="submit" value="SUBMIT">SEARCH</button>
       </div>
     </form>
   </div>
@@ -125,7 +177,9 @@
             <div class="accom-text-box">
               <div class="name-and-type-row">
                 <h1>
-                  <a href="/detail/{{category}}/{{place.id}}" class="name">{{place.name}}</a>
+                  <a href="/detail/{{category}}/{{place.id}}" class="name"
+                    >{{place.name}}</a
+                  >
                 </h1>
                 <span class="type">{{place.type}}</span>
               </div>
@@ -133,10 +187,13 @@
               <div class="ranking-star">{{place.star}}</div>
             </div>
           </div>
-          <div class="favorite" id="favorite-{{favorite.id}}">
+          <div class="favorite" id="favorite-{{place.id}}">
             <div class="like">
-              <button type="submit" onclick="onClickLike()">
-                {% csrf_token %} {% if favorite.like %}
+              <button
+                type="submit"
+                onclick="onClickLike('{{category}}',{{place.id}}, '{{place.favorite}}')"
+              >
+                {% csrf_token %} {% if place.favorite %}
                 <i class="fas fa-heart"></i>
                 {%else%}
                 <i class="far fa-heart"></i>
@@ -151,20 +208,20 @@
         {% if posts.has_previous %}
         <!-- <a href="?page=1">[맨 앞으로]</a> -->
         <a href="?page={{ posts.previous_page_number }}">
-          <img src="/static/img/main_left.svg" alt="">
+          <img src="/static/img/main_left.svg" alt="" />
         </a>
         {% else %}
-        <div><img src="/static/img/main_left.svg" alt=""></div>
+        <div><img src="/static/img/main_left.svg" alt="" /></div>
         {% endif %}
         <span class="square">
           <div>{{posts.number}}</div>
         </span>
         {% if posts.has_next %}
         <a href="?page={{ posts.next_page_number }}">
-          <img src="/static/img/main_right.svg" alt="">
+          <img src="/static/img/main_right.svg" alt="" />
         </a>
         {% else %}
-        <div><img src="/static/img/main_right.svg" alt=""></div>
+        <div><img src="/static/img/main_right.svg" alt="" /></div>
         <!-- <a href="?page={{ posts.paginator.num_pages }}">[맨 뒤로]</a> -->
         {% endif %}
       </div>
@@ -174,9 +231,7 @@
 
 {% endblock %}
 
-<script>
-
-</script>
+<script></script>
 <!-- <div class="page-shift-container">
   <div class="mainList-shift-btn-left">
     <button onclick="onClickMainList('left')">&lt;</button>
