@@ -75,7 +75,6 @@ class Post(models.Model):
     postImage= models.ImageField(blank=True, default="NULL", upload_to='posts/%Y%m%d', verbose_name="사진")
     postGood= models.TextField(null=True)
     postBad= models.TextField(null=True)
-    # postImage= models.ImageField(upload_to='', null=True)
     ranking= models.IntegerField(null=True)
     user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
     placeId = models.IntegerField(null=True)

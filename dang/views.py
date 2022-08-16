@@ -298,9 +298,9 @@ def create(request,category,categry_id):
         ranking = request.POST["ranking"]
 
         Post.objects.create(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
-        return redirect(f'/{category}/{categry_id}') ## 여기 수정해야 함!
+        return redirect(f"/reviewDetail/{category}/{categry_id}") ## 여기 수정해야 함!
 
-    return render(request, 'reviewDetail.html', {'placeName':placeName})
+    return render(request, 'reviewWrite.html', {'placeName':placeName})
 
 
 @csrf_exempt
@@ -315,17 +315,26 @@ def like(request):
         favorite.save()
     return JsonResponse({'id':fav_id, 'type' : favorite.like})
 
-def reviewDetail(request, id):
+def reviewDetail(request, id, category):
     review = Post.objects.get(id=id)
 
-    if review.cafe_post: # 역참조 test 해봐야 함. 안 될 수도
-        placeInfo = review.cafe_post.all()
-    elif review.place_post:
-        placeInfo = review.place_post.all()
-    elif review.accomo_post:
-        placeInfo = review.accomo_post.all()
-    
-    context = {'review':review, 'place':placeInfo}
+    ##if review.cafe_post: # 역참조 test 해봐야 함. 안 될 수도
+    ##    placeInfo = review.cafe_post.all()
+    ##elif review.place_post:
+    ##    placeInfo = review.place_post.all()
+    ##elif review.accomo_post:
+    ##    placeInfo = review.accomo_post.all()
 
-    return render(request, 'reviewDetail.html', context=context)
+    if request.method == "GET":
+        postGood = request.get["postGood"]
+        postBad = request.get["postBad"]
+        postImage = request.get['postImage']
+        ranking = request.get["ranking"]
+
+        Post.objects.get(postType=category,postGood=postGood,postBad=postBad,postImage=postImage,ranking=ranking, user=me, placeId=categry_id)
+        print(Post.objects.all())
+    
+        context = {'review':review, 'category': category}
+
+        return render(request, 'reviewDetail.html', context=context)
 

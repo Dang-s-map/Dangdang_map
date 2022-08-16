@@ -17,7 +17,7 @@
       <span>당신의 소중한 후기는 많은 댕댕이들에게 도움이 됩니다:)</span>
       <div class="review_update_btn">
         <button>Modify</button>
-        <button>Update</button>
+        <button>Delete</button>
       </div>
     </div>
     <form action="" method="POST" enctype="multipart/form-data">
@@ -26,29 +26,29 @@
         <form action="/create" method="POST" enctype="multipart/form-data">
 
 
-        {% csrf_token %}
-        <div class="post_review">
-          <p>
-            다녀온 곳: {{placeName}}
-          </p>
-          <input type="file" name="postImage" />
-          <br>
-          별점 선택: <input name="ranking" type="integer">
-          <br>
-          <div class="post-good">
-            이런 점이 좋았어요 :
+          {% csrf_token %}
+          <div class="post_review">
+            <p>
+              다녀온 곳: {{placeName}}
+            </p>
+            <input type="file" name="postImage" />
             <br>
-            <input name="postGood" type="text">
-          </div>
-          <br>
-          <div class="post-bad">
-            이런 점이 아쉬워요 :
+            별점 선택: <input name="ranking" type="integer">
             <br>
-            <input name="postBad" type="text">
-          </div>
+            <div class="post-good">
+              이런 점이 좋았어요 :
+              <br>
+              <input name="postGood" type="text">
+            </div>
+            <br>
+            <div class="post-bad">
+              이런 점이 아쉬워요 :
+              <br>
+              <input name="postBad" type="text">
+            </div>
 
-        </div>
-        <button class="create_btn" type="submit">Create</button>
+          </div>
+          <button class="create_btn" type="submit">Create</button>
       </div>
     </form>
   </div>
