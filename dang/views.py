@@ -188,7 +188,7 @@ def listDetail(request, category, id):
     except:
         reviews = '아직 리뷰가 없습니다.'
         pass
-    context = {'category': category ,'here': here, 'reviews': reviews}
+    context = {'category': category ,'here': here, 'reviews': reviews, 'name' : here.name}
     return render(request, 'listDetail.html', context=context)
 
 def medicalList(request): # main에서 응급댕댕 선택시
@@ -523,3 +523,7 @@ import math
 def distance(x1, y1, x2, y2):
     result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
     return result
+
+def map(request):
+
+    return render(request, 'maps.html')

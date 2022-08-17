@@ -1,4 +1,4 @@
-{% extends 'base.html'%}{% block content %}
+{% extends 'base.html'%}{% block content %} {% load static %}
 
 <!-- 사진보기-->
 <div class="detail-container">
@@ -55,6 +55,13 @@
           <div class="map_title">
             <h1>지도</h1>
             <div style="text-align: center;"><img src="\static\img\detail_map.svg" alt=""></div>
+            <div>
+              <p style="margin-top: -12px">{{name}}</p>
+              <script>
+                var name={{here.name}};
+              </script>
+              <div id="map" style="width: 100%; height: 350px"></div>
+            </div>
           </div>
         </div>
 
@@ -97,4 +104,12 @@
           <a href="/list/{{category}}/{{here.location}}/{{here.type}}">목록으로</a>
         </div>
         </body>
+        <script
+    type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf0f64ba4cc212c4f652d6b221b72a53&libraries=services"
+  ></script>
+  <script
+    type="text/javascript"
+    src="{% static 'javascripts/map.js' %}"
+  ></script>
         {% endblock %}
