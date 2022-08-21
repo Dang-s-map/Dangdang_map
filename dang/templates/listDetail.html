@@ -74,10 +74,12 @@
           style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
 
       {% endif %}
-      {% if category == 'accomo' %} 
+      {% if category == 'accomo' %}
+      {% if here.reserveLink %} 
         <div class="accommo_link">
           <a href="{{here.reserveLink}}"><img class="reservation" src="\static\img\reservation.png" alt="" /></a>
         </div>
+      {% endif %}
       {% endif %}
     </div>
   </div>
