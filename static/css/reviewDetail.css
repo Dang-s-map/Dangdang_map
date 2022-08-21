@@ -15,6 +15,7 @@
     padding-bottom: 70px;
     display: flex;
     flex-direction: row;
+    font-family: 'Poor Story', cursive;
 
 }
 
@@ -33,6 +34,7 @@
     line-height: 48px;
     margin-bottom: 20px;
     color: #000000;
+    font-family: 'Sunflower', sans-serif;
 }
 
 .review_top_span {
@@ -43,13 +45,14 @@
     line-height: 18px;
     margin-bottom: 20px;
     width: 600px;
-
+    font-family: 'Sunflower', sans-serif;
 }
 
 .review_update_btn {
     display: flex;
     justify-content: flex-end;
     padding: 50px 0;
+    font-family: 'Poor Story', cursive;
 }
 
 .review_update_btn button {
@@ -119,6 +122,7 @@
     margin-top: 8px;
     padding: 10px;
     margin-bottom: 150px;
+    font-family: 'Hi Melody', cursive;
 
 }
 
@@ -167,6 +171,7 @@ input #file-upload-button {
     font-size: 20px;
     line-height: 30px;
     margin: 0 auto;
+    font-family: 'Poor Story', cursive;
 
 }
 
@@ -189,4 +194,29 @@ input #file-upload-button {
     border-radius: 5px;
     font-family: 'Dongle', sans-serif;
     font-size: 2.5rem;
+}
+
+.postRanking {
+    display: flex;
+    flex-direction: row;
+
+    /* White */
+    text-align: center;
+    background: #ffffff;
+    /* Black */
+    width: 50px;
+    height: 30px;
+    border: 2px solid #333333;
+    border-radius: 8px;
+    padding: 3px;
+    padding-left: 18px;
+    margin-left: 20px;
+}
+
+.ranking_detail {
+    display: flex;
+    flex-direction: row;
+    margin-left: 374px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }

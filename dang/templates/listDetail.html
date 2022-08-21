@@ -75,7 +75,9 @@
 
       {% endif %}
       {% if category == 'accomo' %} 
-        <a href="{{here.reserveLink}}">숙소예약링크버튼</a>
+        <div class="accommo_link">
+          <a href="{{here.reserveLink}}"><img class="reservation" src="\static\img\reservation.png" alt="" /></a>
+        </div>
       {% endif %}
     </div>
   </div>

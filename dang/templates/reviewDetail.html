@@ -18,16 +18,31 @@
       </div>
     </div>
     <div class="review_mid">
+
+
       {% if review.postImage %}
       <p>
       <div class="review_photo">
         <img src="{{ review.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
+      </div>
+      {% else %}
+      <div class="review_photo">
+        <img src="\static\img\nophoto.png" style="width: 277px; height: 275px; border-radius: 33px;" />
       </div>
       </p>
       {% endif %}
 
     </div>
     <div class="review_bottom">
+
+      <div class="ranking_detail">
+        <div class="review_span">별점</div>
+        <br>
+        <div class="postRanking">
+          {{review.ranking}}
+        </div>
+      </div>
+
       <div class="post-good">
         <div class="review_span">이런 부분이 좋아요!</div>
         <br>
@@ -35,6 +50,7 @@
           {{review.postGood}}
         </div>
       </div>
+
       <div class="post-bad">
         <div class="review_span">이런 부분이 아쉬워요!</div>
         <br>

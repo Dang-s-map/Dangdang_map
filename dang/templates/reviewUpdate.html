@@ -28,16 +28,25 @@
 
                     {% if post.postImage %}
                     <p>
+
                     <div class="review_photo">
+
                         <img src="{{ post.postImage.url }}" style="width: 277px; height: 275px; border-radius: 33px;" />
                     </div>
                     </p>
                     {% endif %}
+
                     <br>
-                    <div class="review_span">별점 선택</div> <textarea class="ranking_text" name="ranking" type="integer"
-                        placeholder="1~5까지 입력">
-                        {{post.ranking}}
-                    </textarea>
+                    <input type="file" name="postImage" />
+                    <div class="review_span">별점 선택</div>
+                    <select class="r" name="ranking" type="select">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+
                     <br>
                     <div class="post-good">
                         <div class="review_span">이런 점이 좋았어요! </div>

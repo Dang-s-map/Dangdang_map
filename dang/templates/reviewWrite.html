@@ -29,7 +29,16 @@
           </p>
           <input type="file" name="postImage" />
           <br>
-          <span class="review_span">별점 선택 </span><input class="r" name="ranking" type="integer" placeholder="1~5까지 입력">
+          <div class="ranking_box">
+            <span class="review_span">별점 선택 </span>
+            <select class="r" name="ranking" type="select">
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
           <br>
           <div class="post-good">
             <div class="review_span">이런 점이 좋았어요!</div>

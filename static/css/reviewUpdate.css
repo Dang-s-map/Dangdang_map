@@ -123,7 +123,7 @@
 
 input[type=file] {
     /* White */
-    margin-left: 78px;
+    margin-left: 0px;
     margin-top: 6px;
     margin-bottom: 30px;
     background: #FFFFFF;
@@ -208,4 +208,21 @@ input #file-upload-button {
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
     margin-bottom: 20px;
+}
+
+.r[type=select] {
+    display: flex;
+    flex-direction: row;
+
+    /* White */
+    text-align: center;
+    background: #ffffff;
+    /* Black */
+    width: 80px;
+    height: 43.96px;
+    border: 2px solid #333333;
+    border-radius: 8px;
+    margin-right: 8px;
+    margin-bottom: 50px;
+    margin-top: 8px;
 }

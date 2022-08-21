@@ -288,16 +288,22 @@
 .mainList .accom-text-box h1 .name {
   font-size: large;
   font-weight: bold;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .mainList .accom-text-box .type {
   color: gray;
+  font-family: 'Poor Story', cursive;
 }
 
 .mainList .accom-text-box .ranking {
   display: none;
+  font-family: 'Sunflower', sans-serif;
 }
 
+.mainList .accom-text-box .phone{
+  font-family: 'Sunflower', sans-serif;
+}
 .mainList .star {
   display: flex;
   justify-content: start;

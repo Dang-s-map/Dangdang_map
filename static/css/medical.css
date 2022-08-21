@@ -25,6 +25,8 @@
   flex-direction: row;
   margin-left: 600px;
   padding: 50px 0px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 1.3rem;
 }
 
 .search input[type="text"] {
@@ -51,6 +53,7 @@
   margin-left: 8px;
   font-family: "Patrick Hand";
   font-style: normal;
+  font-family: 'Dongle', sans-serif;
 }
 
 .search button[type="search"]:hover {
@@ -103,6 +106,7 @@
   font-weight: 700;
   font-size: 18px;
   line-height: 32px;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .medical_address {
@@ -117,6 +121,7 @@
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .info_bottom {
@@ -135,18 +140,22 @@
   align-items: center;
   padding: 21px 20px;
   gap: 8px;
-  color: white;
-  width: 104px;
+  color: rgb(41, 41, 41);
+  width: 108px;
   height: 42px;
+  font-family: 'Dongle', sans-serif;
+  font-size: 1.7rem;
 
   /* Dark Gray */
 
-  background: #707070;
+  background: #fff3f3d4;
   border-radius: 8px;
 }
 
 .find_location:hover {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+  background: #fd2828c5;
+  color:#ffffff;
 }
 
 .medical_container {
