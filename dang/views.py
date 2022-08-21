@@ -667,13 +667,13 @@ def reviewToModel(request):
                 try:
                     if row[3] and row[4]:
                         reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Cafe.objects.filter(id=info.id).update(star=float(r[3]))
+                        Cafe.objects.filter(id=info.id).update(star=float(row[3]))
                     elif not row[3]:
                         reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
                         Cafe.objects.filter(id=info.id).update(star=float(0))
                     elif not row[4]:
                         reviews.append(Post(postType='cafe',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Cafe.objects.filter(id=info.id).update(star=float(r[3]))
+                        Cafe.objects.filter(id=info.id).update(star=float(row[3]))
                 except:
                     continue
             except:
@@ -684,13 +684,13 @@ def reviewToModel(request):
                 try:
                     if row[3] and row[4]:
                         reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Place.objects.filter(id=info.id).update(star=float(r[3]))
+                        Place.objects.filter(id=info.id).update(star=float(row[3]))
                     elif not row[3]:
                         reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
                         Place.objects.filter(id=info.id).update(star=float(0))
                     elif not row[4]:
                         reviews.append(Post(postType='place',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Place.objects.filter(id=info.id).update(star=float(r[3]))
+                        Place.objects.filter(id=info.id).update(star=float(row[3]))
                 except:
                     continue
             except:
@@ -701,13 +701,13 @@ def reviewToModel(request):
                 try:
                     if row[3] and row[4]:
                         reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Accomodation.objects.filter(id=info.id).update(star=float(r[3]))
+                        Accomodation.objects.filter(id=info.id).update(star=float(row[3]))
                     elif not row[3]:
                         reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
                         Accomodation.objects.filter(id=info.id).update(star=float(0))
                     elif not row[4]:
                         reviews.append(Post(postType='accomo',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
-                        Accomodation.objects.filter(id=info.id).update(star=float(r[3]))
+                        Accomodation.objects.filter(id=info.id).update(star=float(row[3]))
                 except:
                     continue
             except:
