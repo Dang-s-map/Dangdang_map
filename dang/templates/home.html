@@ -104,7 +104,7 @@
       <div class="img-bool">{{review.postImage}}</div>
       <div class="original-url">{{place.img}}</div>
       <div class="random-image">
-        <img src="{{ review.postImage.url }}" />
+        
       </div>
       <div class="random-comment">{{review.postGood|truncatechars:100}}</div>
     </div>
@@ -147,7 +147,15 @@
     let url = urls[index].innerHTML;
     if (img.innerHTML == "NULL") {
       reviewImg.innerHTML = `<img src="${url}" alt="">`;
-      
-  }});
+    }else if (!img.innerHTML){
+      reviewImg.innerHTML = `<img src="${url}" alt="">`;
+    }
+    else if(img.innerHTML.includes('http')){
+      imgg = img.innerHTML.substr(0,7)
+      reviewImg.innerHTML = `<img src="${imgg}" alt="">`;
+    } else{
+      reviewImg.innerHTML = `<img src="${imgBools.innerHTML.url}" alt="">`;
+    }
+  });
 </script>
 {% endblock %}
