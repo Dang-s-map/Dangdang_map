@@ -14,6 +14,7 @@ urlpatterns = [
   path('medical/list', views.medicalList, name='medicalList'), # 메인 -> (nav) 응급댕댕
   path('cates/', views.cates, name='cates'), # category 선택 ajax
   path('csvToModel', views.csvToModel, name='csvToModel'), # db 설정용 url
+  path('reviewToModel', views.reviewToModel, name='reviewToModel'), # db 설정용 url
   path('detail/<str:category>/<int:id>', views.listDetail, name='listDetail'), #목록상세페이지
   path('login/', views.login, name='login'),
   path('join/', views.join, name='join'),

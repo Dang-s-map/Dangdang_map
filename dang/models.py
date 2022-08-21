@@ -84,7 +84,7 @@ class Post(models.Model):
     postGood= models.TextField(null=True)
     postBad= models.TextField(null=True)
     # postImage= models.ImageField(upload_to='', null=True)
-    ranking= models.IntegerField(null=True, blank=True)
+    ranking= models.FloatField(null=True, blank=True)
     user = models.ForeignKey(User, related_name='user_post', on_delete=models.CASCADE)
     placeId = models.IntegerField(null=True)
     # cafe = models.ForeignKey(Cafe, on_delete=models.CASCADE, related_name='cafe_post', null=True)

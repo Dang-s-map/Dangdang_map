@@ -650,10 +650,9 @@ def distance(x1, y1, x2, y2):
     result = abs(float(x1) - float(x2)) + abs(float(y1) - float(y2))
     return result
 
+## review 저장
 def reviewToModel(request):
-    cafes = Cafe.objects.all()
-    accommos = Accomodation.objects.all()
-    places = Place.objects.all()
+    tempUser = User.objects.create(username='naver&google',password='asdf1234',email='abcd@google.com')
 
     r = open("./static/csv/review.csv",'r',encoding='CP949')
     reader_review = csv.reader(r)
@@ -661,12 +660,33 @@ def reviewToModel(request):
     reviews = []
 
     for row in reader_review:
-        if row[3] == 'cafe':
-            info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))
-            reviews.append(Post(postType='cafe',postImage=info.img,postGood=row[3],postBad='',ranking=row[4],placeId=info.id,user=''))
-        elif row[3]  == 'place':
-            info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))
-    ## 더 채우시오
+        if row[2] == 'cafe':
+            try:
+                info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                except:
+                    continue
+            except:
+                continue
+        elif row[2]  == 'place':
+            try:
+                info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                except:
+                    continue
+            except:
+                continue
+        else:
+            try:
+                info = Accomodation.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
+                try:
+                    reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                except:
+                    continue
+            except:
+                continue
     Post.objects.bulk_create(reviews)
 
     r.close()
