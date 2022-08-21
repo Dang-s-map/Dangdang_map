@@ -652,9 +652,10 @@ def distance(x1, y1, x2, y2):
 
 ## review 저장
 def reviewToModel(request):
+    Post.objects.all().delete()
     tempUser = User.objects.create(username='naver&google',password='asdf1234',email='abcd@google.com')
 
-    r = open("./static/csv/review.csv",'r',encoding='CP949')
+    r = open("./static/csv/review.csv",'r',encoding='utf-8')
     reader_review = csv.reader(r)
 
     reviews = []
@@ -664,7 +665,15 @@ def reviewToModel(request):
             try:
                 info = Cafe.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
                 try:
-                    reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(r[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='cafe',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Cafe.objects.filter(id=info.id).update(star=float(r[3]))
                 except:
                     continue
             except:
@@ -673,7 +682,15 @@ def reviewToModel(request):
             try:
                 info = Place.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
                 try:
-                    reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(r[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='place',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Place.objects.filter(id=info.id).update(star=float(r[3]))
                 except:
                     continue
             except:
@@ -682,7 +699,15 @@ def reviewToModel(request):
             try:
                 info = Accomodation.objects.filter(Q(name=row[0])&Q(location=row[1]))[0]
                 try:
-                    reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                    if row[3] and row[4]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(r[3]))
+                    elif not row[3]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood=row[4],postBad='',ranking=0,placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(0))
+                    elif not row[4]:
+                        reviews.append(Post(postType='accomo',postImage=row[5],postGood='',postBad='',ranking=float(row[3]),placeId=info.id,user=tempUser))
+                        Accomodation.objects.filter(id=info.id).update(star=float(r[3]))
                 except:
                     continue
             except:
