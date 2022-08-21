@@ -60,32 +60,28 @@
           <div class="review-count"></div>
           <div class="ranking">{{here.star}}</div>
         </div>
-        <div class="info-text1"><i class="fa-solid fa-location-dot"></i>{{here.address}}</div>
-        {% if here.phone %} 
-        <div class="info-text2"><i class="fa-solid fa-phone"></i>{{here.phone}}</div>
-        {% endif %}
-        {% if here.link1 %} 
-        <div class="info-text3"><a href="{{here.link1}}"><i class="fa-solid fa-hand-point-right"></i>[홈페이지
-            바로가기]</a>
-        </div>
-        {% endif %}
-        <div class="info-text4"><a href="{{here.link2}}"><i class="fa-solid fa-map-location-dot"></i>[네이버
+        <div class="info-text1"><img src="\static\img\loca_icon.svg" alt="" />{{here.address}}</div>
+        <div class="info-text2"><img src="\static\img\phone_icon.svg" alt="" />{{here.phone}}</div>
+        <div class="info-text3"><a href="{{here.link1}}"><img src="\static\img\loca_link_icon.svg" alt="" />[홈페이지
+            바로가기]</a></div>
+        <div class="info-text4"><a href="{{here.link2}}"><img src="\static\img\link_icon.svg" alt="" />[네이버
             지도로 보기]</a></div>
       </div>
       {% if here.desc %}
-      <div class="info-text-desc">{{here.desc|truncatechars:390}}</div>
+      <div class="info-text-desc">{{here.desc}}</div>
       {% else %}
-      <div class="info-text-desc">
-        <div class="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
-          style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i>
-        </div>
-      </div>
+      <div class="no_detail">조금만 기다려주세요 아직 상세정보가 준비되지않았어요...<i
+          style="font-size:100px; color:rgb(255, 231, 112);" class="fa-solid fa-face-sad-tear"></i></div>
+
       {% endif %}
-      {% if here.reserveLink %} 
-        <a class="reserve" href="{{here.reserveLink}}"></a>
+      {% if category == 'accomo' %} 
+        <div class="accommo_link">
+          <a href="{{here.reserveLink}}"><img class="reservation" src="\static\img\reservation.png" alt="" /></a>
+        </div>
       {% endif %}
     </div>
   </div>
+
   
   <!-- 지도보기 -->
   <div class="detail_map">

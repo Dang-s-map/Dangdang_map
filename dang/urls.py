@@ -27,6 +27,7 @@ urlpatterns = [
   path('reviewDetail/<int:id>', views.reviewDetail, name='reviewDetail'), # 리뷰 디테일로 넘어간다.
   path('accounts/', include('allauth.urls')),
   path('medicals/', views.medicals, name='medicals'), # medical ajax
+    path('reviewToModel', views.reviewToModel, name='reviewToModel'), # db 설정용 url
   
 ] + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) +static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
